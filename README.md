@@ -5,4 +5,4 @@
  
  
  
- <p><img src="GameAppAndroid/pictures/2.png" alt="photo"></p>
+ <p><img src="/pictures/2.png" alt="photo"></p>

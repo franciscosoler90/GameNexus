@@ -3,4 +3,6 @@
  
  
  
- https://raw.githubusercontent.com/franciscosoler90/GameAppAndroid/main/pictures/2.png
+ 
+ 
+ <p><img src="main/pictures/2.png" alt="photo"></p>

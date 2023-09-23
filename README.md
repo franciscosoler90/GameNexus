@@ -1,6 +1,4 @@
 # GameAppAndroid
- Proyecto DAM con Kotlin, Retrofit y Jetpack Compose
-
 
 <p>GameApp es una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y la biblioteca Retrofit para la comunicación con la API de RAWG, un popular sitio web de videojuegos. A continuación, se detallan las tecnologías y componentes clave utilizados en el proyecto:</p>
 

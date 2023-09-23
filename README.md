@@ -19,8 +19,6 @@
 
 <li>Búsqueda Avanzada: Se implementa una funcionalidad de búsqueda avanzada que permite a los usuarios buscar juegos por género, plataforma, fecha de lanzamiento y otros criterios, lo que se logra a través de consultas a la API de RAWG.</li>
 
-<li>Interfaz de Usuario Moderna: Jetpack Compose se utiliza para crear una interfaz de usuario moderna y atractiva que se adapta a las últimas tendencias de diseño y ofrece una experiencia de usuario fluida.</li>
-
 </ul>
  
  

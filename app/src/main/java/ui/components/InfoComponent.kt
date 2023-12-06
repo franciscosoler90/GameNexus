@@ -6,6 +6,8 @@ package ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -23,12 +25,17 @@ import entity.Genre
 import entity.Platforms
 
 @Composable
-fun InfoComponent(title: String, description: String) {
+fun DateComponent(title: String, description: String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text(text = title, style = MaterialTheme.typography.titleSmall)
-        Text(text = description, style = MaterialTheme.typography.titleSmall)
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.secondary)
+        Text(
+            text = description,
+            style = MaterialTheme.typography.titleSmall)
     }
 }
 
@@ -39,11 +46,18 @@ fun TagsPlatforms(list : List<Platforms>) {
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(text = "Platforms", style = MaterialTheme.typography.titleSmall)
+        Text(
+            text = "Plataformas",
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.secondary)
         Spacer(modifier = Modifier.padding(4.dp))
 
-        Row(modifier = Modifier.fillMaxSize()) {
-            list.forEach { platform ->
+        // Utilizar LazyRow para organizar los Tags en filas
+        LazyRow(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(list) { platform ->
                 Tag(text = platform.platform.name)
             }
         }
@@ -57,15 +71,21 @@ fun TagsGenres(list : List<Genre>) {
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(text = "Genres", style = MaterialTheme.typography.titleSmall)
+        Text(
+            text = "Géneros",
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.secondary
+        )
         Spacer(modifier = Modifier.padding(4.dp))
 
-        Row(modifier = Modifier.fillMaxSize()) {
-
-            list.forEach { genre ->
+        // Utilizar LazyRow para organizar los Tags en filas
+        LazyRow(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(list) { genre ->
                 Tag(text = genre.name)
             }
-
         }
     }
 }
@@ -74,15 +94,16 @@ fun TagsGenres(list : List<Genre>) {
 fun Tag(text : String) {
     Surface(
         modifier = Modifier.padding(horizontal = 0.dp),
-        shadowElevation = 8.dp,
+        shadowElevation = 2.dp,
         shape = CircleShape,
+        color = MaterialTheme.colorScheme.secondaryContainer
     ) {
         Text(
             text = text,
             modifier = Modifier.padding(8.dp),
             style = MaterialTheme.typography.titleSmall,
-            maxLines = 2,
-            color = Color.White)
+            maxLines = 1,
+            color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
 
     Spacer(modifier = Modifier.padding(4.dp))
@@ -96,10 +117,7 @@ fun MetacriticCard(metacritic : Int){
 
         Card(
             elevation = CardDefaults.cardElevation(
-                defaultElevation = 8.dp
-            ),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primary,
+                defaultElevation = 2.dp
             ),
             border = BorderStroke(1.dp, ratingColor),
             shape = RoundedCornerShape(6.dp),

@@ -27,7 +27,7 @@ import common.Constant
 import entity.Platform
 import ui.components.PlatformItem
 import viewmodels.PlatformListViewModel
-import ui.theme.GameJetpackComposeTheme
+import ui.theme.AppTheme
 import ui.theme.containerColor
 import ui.theme.primaryColor
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            GameJetpackComposeTheme {
+            AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

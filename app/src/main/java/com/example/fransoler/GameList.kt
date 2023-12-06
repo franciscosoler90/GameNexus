@@ -28,7 +28,7 @@ import entity.Game
 import ui.components.GameItem
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
-import ui.theme.GameJetpackComposeTheme
+import ui.theme.AppTheme
 
 class GameList : AppCompatActivity() {
 
@@ -42,7 +42,7 @@ class GameList : AppCompatActivity() {
         page = intent.getIntExtra(Constant.page,1)
 
         setContent {
-            GameJetpackComposeTheme {
+            AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

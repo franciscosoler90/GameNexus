@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import common.Constant
 import ui.components.GameContent
 import ui.components.ImageSlider
-import ui.theme.GameJetpackComposeTheme
+import ui.theme.AppTheme
 import viewmodels.GameInfoViewModel
 import viewmodels.GameScreenshotsViewModel
 
@@ -45,7 +45,7 @@ class GameInfo : AppCompatActivity() {
         val favorite = false
 
         setContent {
-            GameJetpackComposeTheme {
+            AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -67,6 +67,7 @@ class GameInfo : AppCompatActivity() {
         val screenshotsViewModel = GameScreenshotsViewModel(gameId)
 
         Scaffold(
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
@@ -113,7 +114,8 @@ class GameInfo : AppCompatActivity() {
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    backgroundColor = MaterialTheme.colors.surface
+                    backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
+                    elevation = 0.dp
                 ) {
                     Row(modifier = Modifier.padding(16.dp)) {
                         GameContent(game = gameViewModel)
@@ -136,7 +138,7 @@ class GameInfo : AppCompatActivity() {
     private fun compartir(game : GameInfoViewModel) {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Aplicación Fran Soler")
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Aplicación Francisco José Soler Conchello")
         intent.putExtra(Intent.EXTRA_TEXT, "https://rawg.io/games/" + game.slug)
         intent.type = "text/plain"
         startActivity(intent)

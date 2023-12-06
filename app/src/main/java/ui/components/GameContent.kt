@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ui.theme.textWhiteColor
 import viewmodels.GameInfoViewModel
 
 @Composable
@@ -22,10 +21,10 @@ fun GameContent(game: GameInfoViewModel) {
 
     Card(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
+            defaultElevation = 0.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = MaterialTheme.colorScheme.background,
         ),
     ) {
         Column(
@@ -37,15 +36,18 @@ fun GameContent(game: GameInfoViewModel) {
                 Text(
                     text = game.name,
                     style = MaterialTheme.typography.titleSmall,
-                    fontSize = 24.sp, fontWeight = FontWeight.Bold,
-                    color = textWhiteColor
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 if(game.released.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(8.dp))
-                    InfoComponent(title = "Release date", description = game.released)
+                    DateComponent(
+                        title = "Fecha de lanzamiento",
+                        description = game.released)
                 }
 
                 if(game.genres.isNotEmpty()){
@@ -64,7 +66,10 @@ fun GameContent(game: GameInfoViewModel) {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(text = "Metascore", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = "Metascore",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.inversePrimary)
                         Spacer(modifier = Modifier.height(8.dp))
                         MetacriticCard(metacritic = game.metacritic)
                     }
@@ -72,12 +77,13 @@ fun GameContent(game: GameInfoViewModel) {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "About",
-                    style = MaterialTheme.typography.displayMedium
+                    text = "Acerca de",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
                     text = game.description,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.titleSmall
                 )
             }
         }

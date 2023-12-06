@@ -43,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -52,8 +51,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fransoler.MainActivity
-import com.example.fransoler.ui.theme.MyApplicationTheme
 import entity.DatosUsuario
+import ui.theme.AppTheme
 
 @Composable
 fun LoginForm() {
@@ -70,11 +69,11 @@ fun LoginForm() {
         ) {
             Text(
                 text = "GameNexus",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 20.dp),
-                fontFamily = FontFamily.SansSerif,
-                textAlign = TextAlign.Center
+                style = MaterialTheme.typography.displaySmall,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary
             )
+            Spacer(modifier = Modifier.height(20.dp))
             LoginField(
                 value = credenciales.login,
                 onChange = { data -> credenciales = credenciales.copy(login = data) },
@@ -157,7 +156,7 @@ fun LoginField(
         Icon(
             Icons.Rounded.Person,
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.onBackground
         )
     }
 
@@ -193,7 +192,7 @@ fun PasswordField(
         Icon(
             Icons.Rounded.Lock,
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.onBackground
         )
     }
     val trailingIcon = @Composable {
@@ -201,7 +200,7 @@ fun PasswordField(
             Icon(
                 Icons.Rounded.Info,
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.onBackground
             )
         }
     }
@@ -230,7 +229,7 @@ fun PasswordField(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginFormPreview() {
-    MyApplicationTheme {
+    AppTheme {
         LoginForm()
     }
 }
@@ -238,7 +237,7 @@ fun LoginFormPreview() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginFormPreviewDark() {
-    MyApplicationTheme(darkTheme = true) {
+    AppTheme(useDarkTheme = true) {
         LoginForm()
     }
 }

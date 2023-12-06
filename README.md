@@ -1,7 +1,9 @@
 # GameNexus
 <p>Proyecto del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM) del centro CPIFP Los Enlaces, Zaragoza</p>
 
-<p>GameNexus es una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y la biblioteca Retrofit para la comunicación con la API de RAWG, un popular sitio web de videojuegos. A continuación, se detallan las tecnologías y componentes clave utilizados en el proyecto:</p>
+<p>GameNexus es una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y la biblioteca Retrofit para la comunicación con la API de RAWG, un popular sitio web de videojuegos.</p>
+	
+<p>A continuación, se detallan las tecnologías y componentes clave utilizados en el proyecto:</p>
 
 <ul>
 
@@ -11,7 +13,7 @@
 
 <li>Retrofit: La biblioteca Retrofit se utiliza para realizar solicitudes HTTP eficientes a la API de RAWG. Facilita la comunicación con la API y el manejo de datos JSON de manera sencilla.</li>
 
-<li>API de RAWG: La API de RAWG proporciona información sobre videojuegos, incluyendo detalles del juego, reseñas, clasificaciones y más. Esta API es la fuente de datos central para GameApp y se utiliza para obtener información actualizada en tiempo real.</li>
+<li>API de RAWG: Proporciona información sobre videojuegos, incluyendo detalles del juego, reseñas, clasificaciones y más. Esta API es la fuente de datos central para GameApp y se utiliza para obtener información actualizada en tiempo real.</li>
 
 <li>Arquitectura MVVM: GameApp sigue el patrón de arquitectura MVVM (Model-View-ViewModel) para separar la lógica de la interfaz de usuario de la lógica de negocio y los datos. Esto mejora la modularidad y la facilidad de prueba del código.</li>
 

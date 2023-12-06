@@ -1,15 +1,5 @@
 # GameNexus
 
-<style>
-    .centrado {
-	display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-
-
-
 <p>Proyecto del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM) del centro CPIFP Los Enlaces, Zaragoza</p>
 
 <p>GameNexus es una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y la biblioteca Retrofit para la comunicación con la API de RAWG, un popular sitio web de videojuegos.</p>
@@ -32,5 +22,5 @@
 
 </ul>
 
-<p class="centrado"><img src="/pictures/1.png" alt="picture1"></p>
-<p class="centrado"><img src="/pictures/2.png" alt="picture2"></p>
+<p align="center"><img src="/pictures/1.png" alt="picture1"></p>
+<p align="center"><img src="/pictures/2.png" alt="picture2"></p>

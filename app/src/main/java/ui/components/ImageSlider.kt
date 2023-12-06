@@ -4,13 +4,16 @@
 
 package ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.MaterialTheme
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -25,28 +28,31 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import com.google.accompanist.pager.rememberPagerState
 import ui.theme.primaryColor
 import viewmodels.GameScreenshotsViewModel
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
+
+    val pagerState = rememberPagerState(initialPage = 0, 0.0f
+    ) { screenshotsViewModel.screenShots.size }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
 
-        val state = rememberPagerState()
         Column {
 
-            SliderView(state, screenshotsViewModel)
+            SliderView(pagerState, screenshotsViewModel)
             DotsIndicator(
                 totalDots = screenshotsViewModel.screenShots.size,
-                selectedIndex = state.currentPage
+                selectedIndex = pagerState.currentPage
             )
             Spacer(modifier = Modifier.padding(4.dp))
         }
@@ -54,6 +60,7 @@ fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
 
@@ -61,7 +68,7 @@ fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
 
     HorizontalPager(
         state = state,
-        count = viewModel.screenShots.size, modifier = Modifier
+        beyondBoundsPageCount = viewModel.screenShots.size, modifier = Modifier
             .aspectRatio(4/3F,true)
             .fillMaxWidth()
     ) { page ->

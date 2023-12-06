@@ -13,8 +13,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +29,6 @@ import ui.components.GameItem
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
 import ui.theme.GameJetpackComposeTheme
-import ui.theme.primaryColor
 
 class GameList : AppCompatActivity() {
 
@@ -51,7 +53,6 @@ class GameList : AppCompatActivity() {
         }
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     @SuppressLint("NotConstructor")
     @Composable
     private fun GameList(){
@@ -67,7 +68,7 @@ class GameList : AppCompatActivity() {
                             val intent = Intent(this,MainActivity::class.java)
                             startActivity(intent)
                         }) {
-                            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Volver atrás")
+                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver atrás")
                         }
                     },
                     title = {
@@ -104,21 +105,17 @@ class GameList : AppCompatActivity() {
 
                     IconButton(onClick = { updatePrevious(viewModel = viewModel1) }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
-                            tint = primaryColor.copy(
-                                Constant.iconGrayColorAlpha
-                            )
+                            tint = MaterialTheme.colors.primary
                         )
                     }
 
                     IconButton(onClick = { updateForward(viewModel = viewModel1) }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowForward,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = null,
-                            tint = primaryColor.copy(
-                                Constant.iconGrayColorAlpha
-                            )
+                            tint = MaterialTheme.colors.primary
                         )
                     }
                 }

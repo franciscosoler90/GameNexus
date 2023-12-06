@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
 
 @Composable
 fun SearchAppBar(
@@ -32,8 +31,7 @@ fun SearchAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
-        elevation = AppBarDefaults.TopAppBarElevation,
-        color = MaterialTheme.colors.primary
+        color = MaterialTheme.colorScheme.background
     ) {
         TextField(modifier = Modifier
             .fillMaxWidth(),
@@ -44,19 +42,19 @@ fun SearchAppBar(
             placeholder = {
                 Text(
                     modifier = Modifier
-                        .alpha(ContentAlpha.medium),
+                        .alpha(0.5f),
                     text = "Search here...",
                     color = Color.White
                 )
             },
             textStyle = TextStyle(
-                fontSize = MaterialTheme.typography.subtitle1.fontSize
+                fontSize = MaterialTheme.typography.titleSmall.fontSize
             ),
             singleLine = true,
             leadingIcon = {
                 IconButton(
                     modifier = Modifier
-                        .alpha(ContentAlpha.medium),
+                        .alpha(0.5f),
                     onClick = {}
                 ) {
                     Icon(
@@ -91,9 +89,8 @@ fun SearchAppBar(
                     onSearchClicked(text)
                 }
             ),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent,
-                cursorColor = Color.White.copy(alpha = ContentAlpha.medium)
+            colors = TextFieldDefaults.colors(
+                cursorColor = Color.White.copy(alpha = 0.5f)
             ))
     }
 }

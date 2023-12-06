@@ -8,9 +8,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme.typography
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +34,12 @@ fun PlatformItem(platform: Platform, onItemClick: () -> Unit) {
             .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = { onItemClick() }),
-        elevation = 8.dp,
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+        )
     ) {
         Row(
             modifier = Modifier
@@ -63,7 +70,8 @@ fun PlatformItem(platform: Platform, onItemClick: () -> Unit) {
                     text = platform.name,
                     modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
                     fontWeight = FontWeight.Bold,
-                    style = typography.h6
+                    style = typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.inversePrimary
                 )
             }
         }

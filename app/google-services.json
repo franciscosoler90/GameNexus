@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "353064370988",
+    "project_id": "gamenexus-5c696",
+    "storage_bucket": "gamenexus-5c696.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353064370988:android:585022393249416d3ba289",
+        "android_client_info": {
+          "package_name": "com.example.fransoler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF_8cwjEJK_7RgH5rLK9lp8HzK2pb-WwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

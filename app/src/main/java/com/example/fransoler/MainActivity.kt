@@ -12,11 +12,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.rounded.List
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                         IconButton(onClick = {
 
                         }) {
-                            Icon(imageVector = Icons.Rounded.List, contentDescription = null)
+                            Icon(imageVector = Icons.Rounded.Menu, contentDescription = null)
                         }
 
 
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
                     IconButton(onClick = { updatePrevious(viewModel = viewModel) }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
                             tint = primaryColor.copy(
                                 Constant.iconGrayColorAlpha
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
                     IconButton(onClick = { updateForward(viewModel = viewModel) }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowForward,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = null,
                             tint = primaryColor.copy(
                                 Constant.iconGrayColorAlpha

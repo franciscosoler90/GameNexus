@@ -8,10 +8,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,8 +27,8 @@ fun InfoComponent(title: String, description: String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text(text = title, style = MaterialTheme.typography.subtitle2)
-        Text(text = description, style = MaterialTheme.typography.body2)
+        Text(text = title, style = MaterialTheme.typography.titleSmall)
+        Text(text = description, style = MaterialTheme.typography.titleSmall)
     }
 }
 
@@ -38,7 +39,7 @@ fun TagsPlatforms(list : List<Platforms>) {
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(text = "Platforms", style = MaterialTheme.typography.subtitle2)
+        Text(text = "Platforms", style = MaterialTheme.typography.titleSmall)
         Spacer(modifier = Modifier.padding(4.dp))
 
         Row(modifier = Modifier.fillMaxSize()) {
@@ -56,7 +57,7 @@ fun TagsGenres(list : List<Genre>) {
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(text = "Genres", style = MaterialTheme.typography.subtitle2)
+        Text(text = "Genres", style = MaterialTheme.typography.titleSmall)
         Spacer(modifier = Modifier.padding(4.dp))
 
         Row(modifier = Modifier.fillMaxSize()) {
@@ -73,13 +74,13 @@ fun TagsGenres(list : List<Genre>) {
 fun Tag(text : String) {
     Surface(
         modifier = Modifier.padding(horizontal = 0.dp),
-        elevation = 8.dp,
+        shadowElevation = 8.dp,
         shape = CircleShape,
     ) {
         Text(
             text = text,
             modifier = Modifier.padding(8.dp),
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.titleSmall,
             maxLines = 2,
             color = Color.White)
         }
@@ -94,16 +95,20 @@ fun MetacriticCard(metacritic : Int){
             if (metacritic <= 40) Color.Red else if (metacritic <= 70) Color.Yellow else Color.Green
 
         Card(
-            elevation = 8.dp,
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 8.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+            ),
             border = BorderStroke(1.dp, ratingColor),
             shape = RoundedCornerShape(6.dp),
-            backgroundColor = Color.Transparent
         ) {
             Text(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp),
                 text = metacritic.toString(),
                 fontSize = 18.sp,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.titleSmall,
                 maxLines = 1,
                 textAlign = TextAlign.Center,
                 color = ratingColor

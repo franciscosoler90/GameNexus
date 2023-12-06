@@ -4,4 +4,5 @@
 
 <resources>
     <string name="app_name">Fran Soler - Game App</string>
+    <string name="title_activity_login">Login</string>
 </resources>

@@ -8,7 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,10 +21,8 @@ import coil.compose.*
 import coil.request.ImageRequest
 import entity.Game
 
-@ExperimentalMaterialApi
 @Composable
 fun GameItem(game: Game, onItemClick: () -> Unit) {
-
 
     Card(
         modifier = Modifier
@@ -32,7 +30,12 @@ fun GameItem(game: Game, onItemClick: () -> Unit) {
             .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = { onItemClick() }),
-        elevation = 8.dp,
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+        )
     ) {
         Row(
             modifier = Modifier
@@ -63,7 +66,8 @@ fun GameItem(game: Game, onItemClick: () -> Unit) {
                     text = game.name,
                     modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.inversePrimary
                 )
             }
         }

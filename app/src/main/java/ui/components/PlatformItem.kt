@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -32,49 +33,58 @@ fun PlatformItem(platform: Platform, onItemClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = { onItemClick() }),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
+            defaultElevation = 0.dp
         ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary,
         )
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(10.dp)
         ) {
 
-            val painter = rememberAsyncImagePainter(
-                ImageRequest.Builder(LocalContext.current).data(data = platform.image_background)
-                    .apply(block = fun ImageRequest.Builder.() {
-                        crossfade(true)
-                    }).build()
-            )
-            Image(
+            Box(
                 modifier = Modifier
-                    .size(120.dp, 120.dp)
-                    .clip(RoundedCornerShape(16.dp)),
-                painter = painter,
-                alignment = Alignment.CenterStart,
-                contentDescription = "",
-                contentScale = ContentScale.Crop
-            )
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                val painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current).data(data = platform.image_background)
+                        .apply {
+                            crossfade(true)
+                        }.build()
+                )
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(modifier = Modifier.align(Alignment.CenterVertically)) {
-                Text(
-                    text = platform.name,
-                    modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
-                    fontWeight = FontWeight.Bold,
-                    style = typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.inversePrimary
+                Image(
+                    painter = painter,
+                    contentDescription = platform.image_background,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(16.dp))
+                        .align(Alignment.Center)
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = platform.name,
+                fontWeight = FontWeight.Bold,
+                style = typography.displayLarge,
+                color = MaterialTheme.colorScheme.inversePrimary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+            )
+
         }
     }
-
 }

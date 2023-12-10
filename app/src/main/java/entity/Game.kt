@@ -16,7 +16,9 @@ data class Game(
     val background_image_additional: String?,
     val description: String?,
     val description_raw: String?,
-    val released: String?
+    val released: String?,
+    val developers: List<Developer>,
+    val publishers: List<Publisher>
 )
 
 

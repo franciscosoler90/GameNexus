@@ -11,17 +11,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.MaterialTheme
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -31,7 +28,6 @@ import coil.size.Scale
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import ui.theme.primaryColor
 import viewmodels.GameScreenshotsViewModel
 
 
@@ -44,7 +40,7 @@ fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+        color = MaterialTheme.colorScheme.background
     ) {
 
         Column {
@@ -115,14 +111,14 @@ fun DotsIndicator(
                     modifier = Modifier
                         .size(10.dp)
                         .clip(CircleShape)
-                        .background(color = primaryColor)
+                        .background(color = MaterialTheme.colorScheme.onBackground)
                 )
             } else {
                 Box(
                     modifier = Modifier
                         .size(10.dp)
                         .clip(CircleShape)
-                        .background(color = Color.LightGray)
+                        .background(color = MaterialTheme.colorScheme.primaryContainer)
                 )
             }
 

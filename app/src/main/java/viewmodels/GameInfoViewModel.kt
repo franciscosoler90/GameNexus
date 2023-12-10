@@ -36,19 +36,10 @@ class GameInfoViewModel(private val gameId : Int): ViewModel() {
             slug = game.slug
             genres = game.genres.sortedBy { it.name }
             platforms = game.platforms.sortedBy { it.platform.name }
+            name = game.name
+            metacritic = game.metacritic
+            background = game.background_image.toString()
 
-            if(game.name.isNotEmpty()){
-                name = game.name
-            }
-            if(!game.released.isNullOrEmpty()){
-                released = game.released
-            }
-            if(game.metacritic > 0){
-                metacritic = game.metacritic
-            }
-            if(game.background_image != null){
-                background = game.background_image
-            }
             //Si el valor description_raw está vacio, le pasamos el valor description formateado
             description = game.description_raw?.ifEmpty {
                 game.description?.replace("<[^>]*>".toRegex(), "") ?: ""

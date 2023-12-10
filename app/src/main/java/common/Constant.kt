@@ -4,8 +4,6 @@
 
 package common
 
-import androidx.compose.ui.unit.dp
-
 object Constant {
     const val BASE_URL="https://api.rawg.io/api/"
     const val API_KEY="aaa2faf8dae1442fb2f8c97c1053afb7"

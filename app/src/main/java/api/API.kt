@@ -5,7 +5,7 @@
 package api
 
 import common.Constant
-import entity.*
+import entidades.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,13 +21,11 @@ object API {
 
     interface API {
 
-        @GET("platforms")
+        @GET("platforms/lists/parents")
         fun getPlatforms(
-            @Query("page_size") pageSize: Int,
-            @Query("page") page: Int,
             @Query("ordering") ordering: String,
             @Query("key") apiKey: String
-        ): Call<RawgData<List<Platform>>>
+        ): Call<RawgData<List<PlatformParent>>>
 
         @GET("platforms/{id}")
         fun getPlatform(
@@ -72,10 +70,10 @@ object API {
         return OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build()
     }
 
-    fun loadPlatforms(page : Int, success: (platformList: RawgData<List<Platform>>  ) -> Unit, failure: () -> Unit) {
+    fun loadPlatforms(success: (platformList: RawgData<List<PlatformParent>>  ) -> Unit, failure: () -> Unit) {
 
-        getRetroFit().getPlatforms(40, page,"name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<Platform>>> {
-            override fun onResponse(call: Call<RawgData<List<Platform>>>, response: Response<RawgData<List<Platform>>>) {
+        getRetroFit().getPlatforms("name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<PlatformParent>>> {
+            override fun onResponse(call: Call<RawgData<List<PlatformParent>>>, response: Response<RawgData<List<PlatformParent>>>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -84,7 +82,7 @@ object API {
                     println("ERROR")
                 }
             }
-            override fun onFailure(call: Call<RawgData<List<Platform>>>, t: Throwable) {
+            override fun onFailure(call: Call<RawgData<List<PlatformParent>>>, t: Throwable) {
                 println(t.message)
                 failure()
             }

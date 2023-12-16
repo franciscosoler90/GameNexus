@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.*
 import coil.request.ImageRequest
-import entity.Game
+import entidades.Game
 
 @Composable
 fun GameItem(game: Game, onItemClick: () -> Unit) {

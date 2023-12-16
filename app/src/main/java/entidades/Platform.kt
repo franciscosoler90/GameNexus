@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package entity
+package entidades
 
 data class Platform(
     val id: Int,
@@ -13,7 +13,14 @@ data class Platform(
     val description:String
     )
 
-
 data class Platforms(
     val platform:Platform
     )
+
+
+data class PlatformParent(
+    val id: Int,
+    val name:String,
+    val slug:String,
+    val platforms:List<Platform>
+)

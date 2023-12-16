@@ -8,31 +8,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import common.Constant
-import entity.Platform
-import ui.components.PlatformItem
+import entidades.Platform
+import ui.components.PlataformaItem
 import viewmodels.PlatformListViewModel
 import ui.theme.AppTheme
 
 class MainActivity : AppCompatActivity() {
-
-    private var page : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     PlatformList()
                 }
@@ -49,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun PlatformList() {
 
@@ -58,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Fran Soler") },
+                    title = { Text(text = "Plataformas") },
                     actions = {
 
                         IconButton(onClick = {
@@ -73,66 +66,19 @@ class MainActivity : AppCompatActivity() {
                             Icon(imageVector = Icons.Rounded.Menu, contentDescription = null)
                         }
 
-
                     }
                 )
             },
-            bottomBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .background(MaterialTheme.colors.background),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-
-                    IconButton(onClick = { updatePrevious(viewModel = viewModel) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.primary.copy(
-                                Constant.iconGrayColorAlpha
-                            )
-                        )
-                    }
-
-                    IconButton(onClick = { updateForward(viewModel = viewModel) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.primary.copy(
-                                Constant.iconGrayColorAlpha
-                            )
-                        )
-                    }
-                }
-            }
 
         ) { padding ->
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2), // Cambia el número de columnas
                 modifier = Modifier.padding(padding)
             ) {
-                items(viewModel.platformList) { platform ->
-                    PlatformItem(platform = platform) { onItemSelected(platform = platform) }
+                items(viewModel.platformList) { plataforma ->
+                    PlataformaItem(platform = plataforma) { onItemSelected(platform = plataforma) }
                 }
             }
-        }
-    }
-
-
-    private fun updateForward(viewModel : PlatformListViewModel){
-        if(viewModel.next != null){
-            page++
-            viewModel.updatePage(page)
-        }
-    }
-
-    private fun updatePrevious(viewModel : PlatformListViewModel){
-        if(page > 1){
-            page--
-            viewModel.updatePage(page)
         }
     }
 

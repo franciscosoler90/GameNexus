@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.rounded.Favorite
@@ -48,7 +47,7 @@ class GameInfo : AppCompatActivity() {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     ShowGameInfo(intent.getIntExtra(Constant.gameId,1), favorite)
                 }
@@ -56,7 +55,10 @@ class GameInfo : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter",
+        "UnusedMaterial3ScaffoldPaddingParameter"
+    )
     @Composable
     private fun ShowGameInfo(gameId: Int, favorite : Boolean){
 
@@ -67,7 +69,6 @@ class GameInfo : AppCompatActivity() {
         val screenshotsViewModel = GameScreenshotsViewModel(gameId)
 
         Scaffold(
-            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
@@ -114,8 +115,12 @@ class GameInfo : AppCompatActivity() {
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
-                    elevation = 0.dp
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 0.dp
+                    ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                    ),
                 ) {
                     Row(modifier = Modifier.padding(16.dp)) {
                         GameContent(game = gameViewModel)
@@ -126,14 +131,13 @@ class GameInfo : AppCompatActivity() {
         }
     }
 
+    //Volver atrás
     private fun back(){
-        //Volver atrás
         val intent = Intent(this,GameList::class.java)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, page)
         startActivity(intent)
     }
-
 
     private fun compartir(game : GameInfoViewModel) {
         val intent = Intent()

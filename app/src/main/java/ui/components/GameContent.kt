@@ -22,8 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import entity.Genre
-import entity.Platforms
+import entidades.Genre
+import entidades.Platforms
 import viewmodels.GameInfoViewModel
 
 @Composable

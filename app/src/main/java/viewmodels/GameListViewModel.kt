@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entity.Game
+import entidades.Game
 
 class GameListViewModel(private val platformId : Int, private val page : Int): ViewModel() {
 

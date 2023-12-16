@@ -2,9 +2,9 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package entity
+package entidades
 
-data class Developer(
+data class Publisher(
     val id:Int,
     val name:String,
     val slug:String,

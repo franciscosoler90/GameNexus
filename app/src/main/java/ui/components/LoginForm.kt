@@ -4,10 +4,6 @@
 
 package ui.components
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
@@ -41,24 +36,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fransoler.MainActivity
-import entity.DatosUsuario
-import ui.theme.AppTheme
+import entidades.DatosUsuario
+import interfaces.LoginInterface
 
 @Composable
-fun LoginForm() {
+fun LoginForm(loginCallbacks: LoginInterface) {
+
     Surface {
-        var credenciales by remember { mutableStateOf(DatosUsuario()) }
-        val context = LocalContext.current
+        var datosUsuario by remember { mutableStateOf(DatosUsuario()) }
 
         Column(
             verticalArrangement = Arrangement.Center,
@@ -75,33 +69,31 @@ fun LoginForm() {
             )
             Spacer(modifier = Modifier.height(20.dp))
             LoginField(
-                value = credenciales.login,
-                onChange = { data -> credenciales = credenciales.copy(login = data) },
+                value = datosUsuario.login,
+                onChange = { data -> datosUsuario = datosUsuario.copy(login = data) },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
             PasswordField(
-                value = credenciales.pwd,
-                onChange = { data -> credenciales = credenciales.copy(pwd = data) },
-                submit = {
-                    if (!checkCredentials(credenciales, context)) credenciales = DatosUsuario()
-                },
+                value = datosUsuario.pwd,
+                onChange = { data -> datosUsuario = datosUsuario.copy(pwd = data) },
+
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
             LabeledCheckbox(
                 label = "Recordar sesión",
                 onCheckChanged = {
-                    credenciales = credenciales.copy(remember = !credenciales.remember)
+                    datosUsuario = datosUsuario.copy(remember = !datosUsuario.remember)
                 },
-                isChecked = credenciales.remember
+                isChecked = datosUsuario.remember
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-                    if (!checkCredentials(credenciales, context)) credenciales = DatosUsuario()
+                    loginCallbacks.onLoginClicked(datosUsuario)
                 },
-                enabled = credenciales.isNotEmpty(),
+                enabled = datosUsuario.isNotEmpty(),
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -111,16 +103,6 @@ fun LoginForm() {
     }
 }
 
-fun checkCredentials(credemciales: DatosUsuario, context: Context): Boolean {
-    return if (credemciales.isNotEmpty() && credemciales.login == "admin") {
-        context.startActivity(Intent(context, MainActivity::class.java))
-        (context as Activity).finish()
-        true
-    } else {
-        Toast.makeText(context, "Error en los datos de inicio de sesión", Toast.LENGTH_SHORT).show()
-        false
-    }
-}
 
 @Composable
 fun LabeledCheckbox(
@@ -180,13 +162,18 @@ fun LoginField(
 fun PasswordField(
     value: String,
     onChange: (String) -> Unit,
-    submit: () -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Contraseña",
     placeholder: String = "Introduce tu contraseña"
 ) {
 
     var isPasswordVisible by remember { mutableStateOf(false) }
+
+    val icon: Painter = if (isPasswordVisible)
+        painterResource(id = com.google.android.material.R.drawable.design_ic_visibility)
+    else
+        painterResource(id = com.google.android.material.R.drawable.design_ic_visibility_off)
+
 
     val leadingIcon = @Composable {
         Icon(
@@ -196,11 +183,12 @@ fun PasswordField(
         )
     }
     val trailingIcon = @Composable {
-        IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+        IconButton(onClick = {
+            isPasswordVisible = !isPasswordVisible
+        }) {
             Icon(
-                Icons.Rounded.Info,
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.onBackground
+                painter = icon,
+                contentDescription = "Visibility Icon"
             )
         }
     }
@@ -215,29 +203,9 @@ fun PasswordField(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Password
         ),
-        keyboardActions = KeyboardActions(
-            onDone = { submit() }
-        ),
         placeholder = { Text(placeholder) },
         label = { Text(label) },
         singleLine = true,
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
     )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LoginFormPreview() {
-    AppTheme {
-        LoginForm()
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LoginFormPreviewDark() {
-    AppTheme(useDarkTheme = true) {
-        LoginForm()
-    }
 }

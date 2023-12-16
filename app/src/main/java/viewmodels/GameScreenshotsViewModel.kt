@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entity.ScreenShot
+import entidades.ScreenShot
 
 class GameScreenshotsViewModel(private val gameId : Int): ViewModel() {
 

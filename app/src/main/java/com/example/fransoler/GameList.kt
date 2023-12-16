@@ -13,8 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -24,7 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import common.Constant
-import entity.Game
+import entidades.Game
 import ui.components.GameItem
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
@@ -45,7 +44,7 @@ class GameList : AppCompatActivity() {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     GameList()
                 }
@@ -53,6 +52,7 @@ class GameList : AppCompatActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("NotConstructor")
     @Composable
     private fun GameList(){
@@ -98,7 +98,7 @@ class GameList : AppCompatActivity() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .background(MaterialTheme.colors.background),
+                        .background(MaterialTheme.colorScheme.background),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
@@ -107,7 +107,7 @@ class GameList : AppCompatActivity() {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
-                            tint = MaterialTheme.colors.primary
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
 
@@ -115,7 +115,7 @@ class GameList : AppCompatActivity() {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = null,
-                            tint = MaterialTheme.colors.primary
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }

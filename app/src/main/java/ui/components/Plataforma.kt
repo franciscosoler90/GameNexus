@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,12 +51,6 @@ fun PlatformList(plataformaCallbacks: PlatformInterface) {
             TopAppBar(
                 title = { Text(text = "Plataformas") },
                 actions = {
-
-                    IconButton(onClick = {
-
-                    }) {
-                        Icon(imageVector = Icons.Rounded.Search, contentDescription = null)
-                    }
 
                     IconButton(onClick = {
 

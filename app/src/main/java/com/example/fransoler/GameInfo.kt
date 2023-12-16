@@ -4,32 +4,21 @@
 
 package com.example.fransoler
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material.icons.rounded.FavoriteBorder
-import androidx.compose.material.icons.rounded.Share
-import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import common.Constant
-import ui.components.GameContent
-import ui.components.ImageSlider
+import interfaces.GameInfoInterface
+import ui.components.ShowGameInfo
 import ui.theme.AppTheme
 import viewmodels.GameInfoViewModel
-import viewmodels.GameScreenshotsViewModel
 
-class GameInfo : AppCompatActivity() {
+class GameInfo : AppCompatActivity(), GameInfoInterface {
 
     //variables globales
     private var platformId: Int = 0
@@ -44,106 +33,40 @@ class GameInfo : AppCompatActivity() {
         val favorite = false
 
         setContent {
+            val gameInfoInterface = this@GameInfo // Accede a la instancia de la actividad
+
             AppTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ShowGameInfo(intent.getIntExtra(Constant.gameId,1), favorite)
+                    ShowGameInfo(gameInfoInterface, intent.getIntExtra(Constant.gameId,1), favorite)
                 }
             }
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter",
-        "UnusedMaterial3ScaffoldPaddingParameter"
-    )
-    @Composable
-    private fun ShowGameInfo(gameId: Int, favorite : Boolean){
-
-        var favoriteState by remember { mutableStateOf(favorite) }
-        val scrollState = rememberScrollState()
-
-        val gameViewModel = GameInfoViewModel(gameId)
-        val screenshotsViewModel = GameScreenshotsViewModel(gameId)
-
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = {
-                TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = {
-                        back()
-                    }) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver atrás")
-                    }
-                },
-                title = { Text(text = "") },
-                actions = {
-
-                    IconButton(onClick = {
-                        favoriteState = !favoriteState
-                    }) {
-                        Icon(imageVector =
-                            if(favoriteState){
-                                Icons.Rounded.Favorite
-                            }else{
-                                Icons.Rounded.FavoriteBorder
-                            },
-                            contentDescription = null, tint = Color.Red)
-                    }
-
-                    IconButton(onClick = {
-                        compartir(game = gameViewModel)
-                    }) {
-                        Icon(imageVector = Icons.Rounded.Share, contentDescription = null)
-                    }
-
-
-                }
-            )
-        }
-
-        ) {
-
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(scrollState)) {
-
-                ImageSlider(screenshotsViewModel = screenshotsViewModel)
-
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 0.dp
-                    ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.background,
-                    ),
-                ) {
-                    Row(modifier = Modifier.padding(16.dp)) {
-                        GameContent(game = gameViewModel)
-                    }
-                }
-
-            }
+    override fun changeFavorite(newFavorite: Boolean, title: String) {
+        if(newFavorite){
+            Toast.makeText(this,"Añadido a favoritos: $title", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this,"Eliminado de favoritos: $title", Toast.LENGTH_SHORT).show()
         }
     }
 
     //Volver atrás
-    private fun back(){
+    override fun back(){
         val intent = Intent(this,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, page)
         startActivity(intent)
     }
 
-    private fun compartir(game : GameInfoViewModel) {
+    override fun compartir(game : GameInfoViewModel) {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Aplicación Francisco José Soler Conchello")
-        intent.putExtra(Intent.EXTRA_TEXT, "https://rawg.io/games/" + game.slug)
+        intent.putExtra(Intent.EXTRA_SUBJECT, Constant.autor)
+        intent.putExtra(Intent.EXTRA_TEXT, Constant.urlGames + game.slug)
         intent.type = "text/plain"
         startActivity(intent)
     }

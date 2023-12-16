@@ -4,19 +4,24 @@
 
 package ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,6 +33,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,12 +46,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import entidades.Genre
 import entidades.Platforms
+import interfaces.GameInfoInterface
 import interfaces.GameListInterface
 import viewmodels.GameInfoViewModel
 import viewmodels.GameListViewModel
+import viewmodels.GameScreenshotsViewModel
 import viewmodels.PlatformInfoViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun showGameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int){
 
@@ -51,35 +61,7 @@ fun showGameList(gameListCallbacks: GameListInterface, platformId: Int, page: In
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = {
-                        gameListCallbacks.backToPlatforms()
-                    }) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver atrás")
-                    }
-                },
-                title = {
-                    Text(text = viewModel2.platformName)
-                },
-                actions = {
-
-
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null
-                        )
-                    }
-
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "Ver más"
-                        )
-                    }
-                }
-            )
+            searchBar(gameListCallbacks, viewModel2.platformName)
         },
         bottomBar = {
             Row(
@@ -126,6 +108,81 @@ fun showGameList(gameListCallbacks: GameListInterface, platformId: Int, page: In
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter",
+    "UnusedMaterial3ScaffoldPaddingParameter"
+)
+@Composable
+fun ShowGameInfo(gameInfoInterface: GameInfoInterface, gameId: Int, favorite : Boolean){
+
+    var favoriteState by remember { mutableStateOf(favorite) }
+    val scrollState = rememberScrollState()
+
+    val gameViewModel = GameInfoViewModel(gameId)
+    val screenshotsViewModel = GameScreenshotsViewModel(gameId)
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+                        gameInfoInterface.back()
+                    }) {
+                        Icon(imageVector = Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Volver atrás")
+                    }
+                },
+                title = { Text(text = "") },
+                actions = {
+
+                    IconButton(onClick = {
+                        favoriteState = !favoriteState
+                        gameInfoInterface.changeFavorite(favoriteState, gameViewModel.name)
+                    }) {
+                        Icon(imageVector =
+                        if(favoriteState){
+                            Icons.Rounded.Favorite
+                        }else{
+                            Icons.Rounded.FavoriteBorder
+                        },
+                            contentDescription = null, tint = Color.Red)
+                    }
+
+                    IconButton(onClick = {
+                        gameInfoInterface.compartir(gameViewModel)
+                    }) {
+                        Icon(imageVector = Icons.Rounded.Share, contentDescription = gameViewModel.name)
+                    }
+
+                }
+            )
+        }
+
+    ) {
+
+        Column(modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(scrollState)) {
+
+                ImageSlider(screenshotsViewModel = screenshotsViewModel)
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 0.dp
+                    ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                    ),
+                ) {
+                    Row(modifier = Modifier.padding(16.dp)) {
+                        GameContent(game = gameViewModel)
+                    }
+                }
+
+            }
+        }
+    }
 
 @Composable
 fun GameContent(game: GameInfoViewModel) {
@@ -170,7 +227,6 @@ fun GameContent(game: GameInfoViewModel) {
                     Spacer(modifier = Modifier.height(8.dp))
                     TagsPlatforms(list = game.platforms)
                 }
-
 
                 if(game.metacritic > 0) {
                     Spacer(modifier = Modifier.height(8.dp))

@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -64,14 +63,16 @@ fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
 
     HorizontalPager(
         state = state,
-        beyondBoundsPageCount = viewModel.screenShots.size, modifier = Modifier
-            .aspectRatio(4/3F,true)
+        beyondBoundsPageCount = viewModel.screenShots.size,
+        modifier = Modifier
+            .aspectRatio(4/3F,false)
             .fillMaxWidth()
     ) { page ->
+
         imageUrl.value = viewModel.screenShots[page].image
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -84,9 +85,12 @@ fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
                         }).build()
                 )
                 Image(
-                    painter = painter, contentDescription = "", Modifier
-                        .padding(8.dp).clip(RoundedCornerShape(8.dp))
-                        .fillMaxSize(), contentScale = ContentScale.Crop
+                    painter = painter, contentDescription = "",
+                    modifier = Modifier
+                        .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+                        .padding(top = 16.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxSize(),
                 )
             }
         }

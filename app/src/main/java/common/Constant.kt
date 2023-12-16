@@ -12,5 +12,7 @@ object Constant {
     const val gameId="gameId"
     const val page="page"
 
-    const val iconGrayColorAlpha = 0.6f
+    const val urlGames = "https://rawg.io/games/"
+
+    const val autor = "GameNexus - Francisco José Soler Conchello"
 }

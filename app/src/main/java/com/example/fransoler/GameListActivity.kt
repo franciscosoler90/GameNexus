@@ -33,7 +33,7 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
             val gameListInterface = this@GameListActivity // Accede a la instancia de la actividad
             AppTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     showGameList(gameListInterface, platformId = platformId, page)
@@ -70,6 +70,5 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
             viewModel.updatePage(page)
         }
     }
-
 
 }

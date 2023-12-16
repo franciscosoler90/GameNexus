@@ -7,12 +7,23 @@ package ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +36,52 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import entidades.Platform
+import interfaces.PlatformInterface
+import viewmodels.PlatformListViewModel
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PlatformList(plataformaCallbacks: PlatformInterface) {
+
+    val viewModel = PlatformListViewModel()
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Plataformas") },
+                actions = {
+
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(imageVector = Icons.Rounded.Search, contentDescription = null)
+                    }
+
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(imageVector = Icons.Rounded.Menu, contentDescription = null)
+                    }
+
+                }
+            )
+        },
+
+        ) { padding ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2), // Cambia el número de columnas
+            modifier = Modifier.padding(padding)
+        ) {
+            items(viewModel.platformList) { plataforma ->
+                PlataformaItem(platform = plataforma) {
+                    plataformaCallbacks.onPlatformClicked(plataforma)
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun PlataformaItem(platform: Platform, onItemClick: () -> Unit) {

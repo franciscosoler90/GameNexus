@@ -30,7 +30,7 @@
             android:name=".GameInfo"
             android:exported="false" />
         <activity
-            android:name=".GameList"
+            android:name=".GameListActivity"
             android:exported="false" />
     </application>
 

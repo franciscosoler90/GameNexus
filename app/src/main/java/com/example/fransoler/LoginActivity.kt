@@ -56,6 +56,4 @@ class LoginActivity : ComponentActivity(), LoginInterface {
             }
     }
 
-
-
 }

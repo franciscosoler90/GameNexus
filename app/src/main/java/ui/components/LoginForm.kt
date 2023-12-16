@@ -77,7 +77,6 @@ fun LoginForm(loginCallbacks: LoginInterface) {
             PasswordField(
                 value = datosUsuario.pwd,
                 onChange = { data -> datosUsuario = datosUsuario.copy(pwd = data) },
-
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))

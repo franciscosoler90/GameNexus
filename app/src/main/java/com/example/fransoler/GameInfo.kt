@@ -133,7 +133,7 @@ class GameInfo : AppCompatActivity() {
 
     //Volver atrás
     private fun back(){
-        val intent = Intent(this,GameList::class.java)
+        val intent = Intent(this,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, page)
         startActivity(intent)

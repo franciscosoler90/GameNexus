@@ -5,17 +5,30 @@
 package ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +37,95 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import entidades.Genre
 import entidades.Platforms
+import interfaces.GameListInterface
 import viewmodels.GameInfoViewModel
+import viewmodels.GameListViewModel
+import viewmodels.PlatformInfoViewModel
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun showGameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int){
+
+    val viewModel1 = GameListViewModel(platformId,page)
+    val viewModel2 = PlatformInfoViewModel(platformId)
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+                        gameListCallbacks.backToPlatforms()
+                    }) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver atrás")
+                    }
+                },
+                title = {
+                    Text(text = viewModel2.platformName)
+                },
+                actions = {
+
+
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null
+                        )
+                    }
+
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "Ver más"
+                        )
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .background(MaterialTheme.colorScheme.background),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+
+                IconButton(onClick = {
+                    gameListCallbacks.updatePrevious(viewModel1)
+                }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                IconButton(onClick = {
+                    gameListCallbacks.updateForward(viewModel1)
+                }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        },
+
+        ) { padding ->
+        LazyColumn(
+            modifier = Modifier.padding(padding)
+        ) {
+            items(viewModel1.gameList) { game ->
+                GameItem(game = game) {
+                    gameListCallbacks.onGameClicked(game)
+                }
+            }
+        }
+    }
+}
+
 
 @Composable
 fun GameContent(game: GameInfoViewModel) {

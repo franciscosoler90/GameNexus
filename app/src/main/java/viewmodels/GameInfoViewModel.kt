@@ -9,8 +9,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
+import entidades.Developer
 import entidades.Genre
 import entidades.Platforms
+import entidades.Publisher
 
 class GameInfoViewModel(private val gameId : Int): ViewModel() {
 
@@ -22,6 +24,8 @@ class GameInfoViewModel(private val gameId : Int): ViewModel() {
     var metacritic by mutableStateOf(0)
     var genres : List<Genre> by mutableStateOf(listOf())
     var platforms : List<Platforms> by mutableStateOf(listOf())
+    var publishers : List<Publisher> by mutableStateOf(listOf())
+    var developers : List<Developer> by mutableStateOf(listOf())
     var slug by mutableStateOf("")
 
     init {
@@ -34,10 +38,13 @@ class GameInfoViewModel(private val gameId : Int): ViewModel() {
 
             id = game.id
             slug = game.slug
-            genres = game.genres.sortedBy { it.name }
-            platforms = game.platforms.sortedBy { it.platform.name }
             name = game.name
             metacritic = game.metacritic
+            genres = game.genres.sortedBy { it.name }
+            platforms = game.platforms.sortedBy { it.platform.name }
+            publishers = game.publishers.sortedBy { it.name }
+            developers = game.developers.sortedBy { it.name }
+            released = game.released.toString()
             background = game.background_image.toString()
 
             //Si el valor description_raw está vacio, le pasamos el valor description formateado

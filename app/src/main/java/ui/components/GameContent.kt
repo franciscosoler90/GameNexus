@@ -44,8 +44,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import entidades.Developer
 import entidades.Genre
 import entidades.Platforms
+import entidades.Publisher
 import interfaces.GameInfoInterface
 import interfaces.GameListInterface
 import viewmodels.GameInfoViewModel
@@ -215,17 +217,28 @@ fun GameContent(game: GameInfoViewModel) {
                     Spacer(modifier = Modifier.height(8.dp))
                     DateComponent(
                         title = "Fecha de lanzamiento",
-                        description = game.released)
+                        date = game.released
+                    )
                 }
 
                 if(game.genres.isNotEmpty()){
                     Spacer(modifier = Modifier.height(8.dp))
-                    TagsGenres(list = game.genres)
+                    TagsGenres("Géneros", list = game.genres)
                 }
 
                 if(game.platforms.isNotEmpty()){
                     Spacer(modifier = Modifier.height(8.dp))
-                    TagsPlatforms(list = game.platforms)
+                    TagsPlatforms("Plataformas", list = game.platforms)
+                }
+
+                if(game.publishers.isNotEmpty()){
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TagsPublishers("Distribuidores", list = game.publishers)
+                }
+
+                if(game.developers.isNotEmpty()){
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TagsDevelopers("Desarrolladores", list = game.developers)
                 }
 
                 if(game.metacritic > 0) {
@@ -259,57 +272,84 @@ fun GameContent(game: GameInfoViewModel) {
 }
 
 @Composable
-fun DateComponent(title: String, description: String) {
+fun DateComponent(title: String, date: String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
+
+        TextElement(text = title)
+
         Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.secondary)
-        Text(
-            text = description,
-            style = MaterialTheme.typography.titleSmall)
+            text = date,
+            style = MaterialTheme.typography.titleSmall
+        )
     }
 }
 
 
-
 @Composable
-fun TagsPlatforms(list : List<Platforms>) {
+fun TagsPlatforms(text: String, list : List<Platforms>) {
 
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(
-            text = "Plataformas",
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.secondary)
-
+        TextElement(text = text)
         Spacer(modifier = Modifier.padding(4.dp))
-
         TagsRow(list = list.map { it.platform.name })
     }
 }
 
 @Composable
-fun TagsGenres(list : List<Genre>) {
+fun TagsGenres(text: String, list : List<Genre>) {
 
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
 
-        Text(
-            text = "Géneros",
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.secondary)
-
+        TextElement(text = text)
         Spacer(modifier = Modifier.padding(4.dp))
-
         TagsRow(list = list.map { it.name })
 
     }
+}
+
+@Composable
+fun TagsPublishers(text: String, list : List<Publisher>) {
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+
+        TextElement(text = text)
+        Spacer(modifier = Modifier.padding(4.dp))
+        TagsRow(list = list.map { it.name })
+
+    }
+}
+
+@Composable
+fun TagsDevelopers(text: String, list : List<Developer>) {
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+
+        TextElement(text = text)
+        Spacer(modifier = Modifier.padding(4.dp))
+        TagsRow(list = list.map { it.name })
+
+    }
+}
+
+@Composable
+fun TextElement(text : String) {
+
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.secondary
+    )
 }
 
 @Composable
@@ -329,6 +369,7 @@ fun TagsRow(list : List<String>) {
 
 @Composable
 fun TagElement(text : String) {
+
     Surface(
         modifier = Modifier.padding(horizontal = 0.dp),
         shadowElevation = 2.dp,

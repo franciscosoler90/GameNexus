@@ -8,7 +8,7 @@ import viewmodels.GameInfoViewModel
 
 interface GameInfoInterface {
 
-    fun changeFavorite(newFavorite : Boolean, title: String)
+    fun changeFavorite(newFavorite : Boolean)
 
     fun back()
 

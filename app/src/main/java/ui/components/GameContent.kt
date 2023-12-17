@@ -139,7 +139,7 @@ fun ShowGameInfo(gameInfoInterface: GameInfoInterface, gameId: Int, favorite : B
 
                     IconButton(onClick = {
                         favoriteState = !favoriteState
-                        gameInfoInterface.changeFavorite(favoriteState, gameViewModel.name)
+                        gameInfoInterface.changeFavorite(favoriteState)
                     }) {
                         Icon(imageVector =
                         if(favoriteState){

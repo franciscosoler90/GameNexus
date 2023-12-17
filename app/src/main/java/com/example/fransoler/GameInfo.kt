@@ -46,11 +46,11 @@ class GameInfo : AppCompatActivity(), GameInfoInterface {
         }
     }
 
-    override fun changeFavorite(newFavorite: Boolean, title: String) {
+    override fun changeFavorite(newFavorite: Boolean) {
         if(newFavorite){
-            Toast.makeText(this,"Añadido a favoritos: $title", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,R.string.addFavorite, Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(this,"Eliminado de favoritos: $title", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,R.string.deleteFavorite, Toast.LENGTH_SHORT).show()
         }
     }
 

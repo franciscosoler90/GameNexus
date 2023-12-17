@@ -3,6 +3,17 @@
   -->
 
 <resources>
-    <string name="app_name">Fran Soler - Game App</string>
+    <string name="app_name">GameNexus</string>
     <string name="title_activity_login">Login</string>
+
+    <string name="genres">Géneros</string>
+    <string name="platforms">Plataformas</string>
+    <string name="publishers">Distribuidores</string>
+    <string name="developers">Desarrolladores</string>
+
+    <string name="addFavorite">Añadido a favoritos</string>
+    <string name="deleteFavorite">Eliminado de favoritos</string>
+
+    <string name="errorLogin">Error de inicio de sesión</string>
+
 </resources>

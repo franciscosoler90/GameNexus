@@ -51,7 +51,7 @@ class LoginActivity : ComponentActivity(), LoginInterface {
                     startActivity(intent)
                 } else {
                     // Autenticación fallida, muestra un Toast
-                    Toast.makeText(this, "Error de inicio de sesión", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.errorLogin, Toast.LENGTH_LONG).show()
                 }
             }
     }

@@ -18,8 +18,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -128,14 +128,14 @@ fun LoginField(
     value: String,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = "Usuario",
-    placeholder: String = "Introduce tu usuario"
-) {
+    label: String = "Correo electrónico",
+
+    ) {
 
     val focusManager = LocalFocusManager.current
     val leadingIcon = @Composable {
         Icon(
-            Icons.Rounded.Person,
+            Icons.Rounded.Email,
             contentDescription = "",
             tint = MaterialTheme.colorScheme.onBackground
         )
@@ -150,7 +150,7 @@ fun LoginField(
         keyboardActions = KeyboardActions(
             onNext = { focusManager.moveFocus(FocusDirection.Down) }
         ),
-        placeholder = { Text(placeholder) },
+        placeholder = {},
         label = { Text(label) },
         singleLine = true,
         visualTransformation = VisualTransformation.None
@@ -163,7 +163,6 @@ fun PasswordField(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Contraseña",
-    placeholder: String = "Introduce tu contraseña"
 ) {
 
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -172,7 +171,6 @@ fun PasswordField(
         painterResource(id = com.google.android.material.R.drawable.design_ic_visibility)
     else
         painterResource(id = com.google.android.material.R.drawable.design_ic_visibility_off)
-
 
     val leadingIcon = @Composable {
         Icon(
@@ -202,7 +200,7 @@ fun PasswordField(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Password
         ),
-        placeholder = { Text(placeholder) },
+        placeholder = {},
         label = { Text(label) },
         singleLine = true,
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()

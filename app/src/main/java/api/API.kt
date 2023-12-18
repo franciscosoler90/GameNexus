@@ -43,13 +43,13 @@ object API {
 
         @GET("games/{id}")
         fun getGameDetails(
-            @Path("id") id: Int,
+            @Path("id") id: Long,
             @Query("key") apiKey: String
         ): Call<Game>
 
         @GET("games/{id}/screenshots")
         fun getGameScreenshots(
-            @Path("id") id: Int,
+            @Path("id") id: Long,
             @Query("key") apiKey: String
         ): Call<RawgData<List<ScreenShot>>>
 
@@ -137,7 +137,7 @@ object API {
         })
     }
 
-    fun loadGameDetails(gameId : Int, success: (gameDetails: Game) -> Unit, failure: () -> Unit) {
+    fun loadGameDetails(gameId: Long, success: (gameDetails: Game) -> Unit, failure: () -> Unit) {
 
         if(gameId <= 0){
             return
@@ -161,7 +161,7 @@ object API {
     }
 
 
-    fun loadGameScreenshots(gameId : Int, success: (gameScreenshots: RawgData<List<ScreenShot>>) -> Unit, failure: () -> Unit) {
+    fun loadGameScreenshots(gameId: Long, success: (gameScreenshots: RawgData<List<ScreenShot>>) -> Unit, failure: () -> Unit) {
 
         if(gameId <= 0){
             return

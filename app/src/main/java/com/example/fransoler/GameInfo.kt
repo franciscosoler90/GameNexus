@@ -9,10 +9,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import common.Constant
+import common.shareLink
 import interfaces.GameInfoInterface
 import ui.components.ShowGameInfo
 import ui.theme.AppTheme
@@ -20,7 +23,6 @@ import viewmodels.GameInfoViewModel
 
 class GameInfo : AppCompatActivity(), GameInfoInterface {
 
-    //variables globales
     private var platformId: Int = 0
     private var page : Int = 1
 
@@ -30,17 +32,14 @@ class GameInfo : AppCompatActivity(), GameInfoInterface {
         platformId = intent.getIntExtra(Constant.platformId,0)
         page = intent.getIntExtra(Constant.page,1)
 
-        val favorite = false
-
         setContent {
             val gameInfoInterface = this@GameInfo // Accede a la instancia de la actividad
-
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ShowGameInfo(gameInfoInterface, intent.getIntExtra(Constant.gameId,1), favorite)
+                    ShowGameInfo(gameInfoInterface, intent.getLongExtra(Constant.gameId,1))
                 }
             }
         }
@@ -63,12 +62,7 @@ class GameInfo : AppCompatActivity(), GameInfoInterface {
     }
 
     override fun compartir(game : GameInfoViewModel) {
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_SUBJECT, Constant.autor)
-        intent.putExtra(Intent.EXTRA_TEXT, Constant.urlGames + game.slug)
-        intent.type = "text/plain"
-        startActivity(intent)
+        this.shareLink(game)
     }
 
 }

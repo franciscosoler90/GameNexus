@@ -4,11 +4,14 @@
 
 package entidades
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "publisher")
 data class Publisher(
-    val id:Int,
-    val name:String,
-    val slug:String,
-    val gameCount:Int,
-    val imageBackgroundURL:String,
-    val description:String
+    @PrimaryKey val id:Int,
+    @ColumnInfo(name = "name") val name:String,
+    @ColumnInfo(name = "slug") val slug:String,
+    @ColumnInfo(name = "image_background") val image_background:String,
 )

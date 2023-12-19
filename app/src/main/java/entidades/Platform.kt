@@ -4,23 +4,28 @@
 
 package entidades
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "platform")
 data class Platform(
-    val id: Int,
-    val name:String,
-    val slug:String,
-    val games_count:Int,
-    val image_background:String,
-    val description:String
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "name") val name:String,
+    @ColumnInfo(name = "slug") val slug:String,
+    @ColumnInfo(name = "games_count") val games_count:Int,
+    @ColumnInfo(name = "image_background") val image_background:String,
+    @ColumnInfo(name = "description") val description:String
     )
+
+@Entity(tableName = "platform_parent")
+data class PlatformParent(
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "name") val name:String,
+    @ColumnInfo(name = "slug") val slug:String,
+    @ColumnInfo(name = "platforms") val platforms:List<Platform>
+)
 
 data class Platforms(
     val platform:Platform
-    )
-
-
-data class PlatformParent(
-    val id: Int,
-    val name:String,
-    val slug:String,
-    val platforms:List<Platform>
 )

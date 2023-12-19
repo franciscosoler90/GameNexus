@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
-import common.shareLink
+import utilidades.shareLink
 import interfaces.GameInfoInterface
 import ui.components.GameInfo
 import ui.theme.AppTheme

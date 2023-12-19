@@ -2,11 +2,12 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package common
+package utilidades
 
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import common.Constant
 import viewmodels.GameInfoViewModel
 
 fun Context.showToast(message: String) {

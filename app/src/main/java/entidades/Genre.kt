@@ -4,10 +4,15 @@
 
 package entidades
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "genre")
 data class Genre(
-    val id:Int,
-    val name:String,
-    val slug:String,
-    val games_count:Int
+    @PrimaryKey val id:Int,
+    @ColumnInfo(name = "name") val name:String,
+    @ColumnInfo(name = "slug") val slug:String,
+    @ColumnInfo(name = "image_background") val image_background:String,
 )
 

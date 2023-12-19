@@ -49,15 +49,22 @@ fun PlatformList(plataformaCallbacks: PlatformInterface, bottomBarState: BottomB
         }
     ) {
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        // Column que contiene el LazyColumn
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(0.dp, 8.dp)
+                .padding(top = 0.dp, bottom = 60.dp) // Ajusta el espacio inferior
         ) {
-            items(viewModel.platformList) { plataforma ->
-                PlataformaItem(platform = plataforma) {
-                    plataformaCallbacks.onPlatformClicked(plataforma)
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(0.dp, 8.dp)
+            ) {
+                items(viewModel.platformList) { plataforma ->
+                    PlataformaItem(platform = plataforma) {
+                        plataformaCallbacks.onPlatformClicked(plataforma)
+                    }
                 }
             }
         }

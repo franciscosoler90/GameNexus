@@ -36,7 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import common.showToast
+import utilidades.showToast
 import entidades.DetailScreenEvent
 import interfaces.GameInfoInterface
 import viewmodels.GameInfoViewModel

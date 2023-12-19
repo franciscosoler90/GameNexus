@@ -46,7 +46,7 @@ import viewmodels.GameScreenshotsViewModel
 @Composable
 fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
 
-    val gameViewModel = GameInfoViewModel(gameId)
+    val gameInfoViewModel = GameInfoViewModel(gameId)
     val screenshotsViewModel = GameScreenshotsViewModel(gameId)
 
     val context = LocalContext.current
@@ -64,7 +64,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                 verticalArrangement = Arrangement.spacedBy((-30).dp),
             ) {
 
-                GamePoster(game = gameViewModel, gameInfoInterface)
+                GamePoster(gameInfoViewModel = gameInfoViewModel, gameInfoInterface)
 
                 Column(
                     modifier = Modifier
@@ -79,7 +79,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = gameViewModel.name,
+                            text = gameInfoViewModel.name,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.weight(1F)
@@ -88,7 +88,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Icon(
-                            imageVector = if (gameViewModel.isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                            imageVector = if (gameInfoViewModel.isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                             contentDescription = null,
                             tint = Color.Red,
                             modifier = Modifier
@@ -98,17 +98,17 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = rememberRipple(bounded = false),
                                     onClick = {
-                                        gameViewModel.isFavorite = !gameViewModel.isFavorite
-                                        gameViewModel.onEvent(
+                                        gameInfoViewModel.isFavorite = !gameInfoViewModel.isFavorite
+                                        gameInfoViewModel.onEvent(
                                             DetailScreenEvent.BookmarkGame(
-                                                id = gameViewModel.id,
-                                                bookmarked = gameViewModel.isFavorite
+                                                id = gameInfoViewModel.id,
+                                                bookmarked = gameInfoViewModel.isFavorite
                                             )
                                         )
                                         //Favorito
                                         //gameInfoInterface.changeFavorite(gameViewModel.isFavorite)
 
-                                        if (gameViewModel.isFavorite) {
+                                        if (gameInfoViewModel.isFavorite) {
                                             context.showToast("Marcado como favorito")
                                         }else{
                                             context.showToast("Eliminado como favorito")
@@ -121,7 +121,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    GeneralGameInfo(gameInfoViewModel = gameViewModel)
+                    GeneralGameInfo(gameInfoViewModel = gameInfoViewModel)
 
                     Spacer(modifier = Modifier.height(24.dp))
 
@@ -134,7 +134,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = gameViewModel.description.ifBlank { "-" },
+                        text = gameInfoViewModel.description.ifBlank { "-" },
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.secondary,
                     )

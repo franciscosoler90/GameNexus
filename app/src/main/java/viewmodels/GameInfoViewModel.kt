@@ -39,6 +39,10 @@ class GameInfoViewModel(private val gameId: Long): ViewModel() {
     }
 
     fun onEvent(event: DetailScreenEvent) {
+
+        println("DetailScreenEvent")
+        println(event.toString())
+
         when (event) {
 
             else -> {}
@@ -54,9 +58,10 @@ class GameInfoViewModel(private val gameId: Long): ViewModel() {
             name = game.name.trim()
             rating = game.rating.toString()
             metacritic = game.metacritic
-            released = game.released.toString()
-            background = game.background_image.toString()
+            released = game.released.toString().ifBlank { "" }
             isFavorite = game.isFavorite
+
+            background = game.background_image.toString()
 
             val publisherFlatList = game.publishers.flatMap { publishers -> listOf(publishers.name) }
             publishers = publisherFlatList
@@ -71,9 +76,9 @@ class GameInfoViewModel(private val gameId: Long): ViewModel() {
             developers = developersFlatList
 
             //Si el valor description_raw está vacio, le pasamos el valor description formateado
-            description = game.description_raw?.ifEmpty {
-                game.description?.replace("<[^>]*>".toRegex(), "") ?: ""
-            } ?: ""
+            description = game.description_raw.ifEmpty {
+                game.description.replace("<[^>]*>".toRegex(), "")
+            }
 
         }) {
             println("Error")

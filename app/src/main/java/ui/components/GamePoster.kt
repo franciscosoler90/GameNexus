@@ -26,12 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import entidades.DetailScreenEvent
 import interfaces.GameInfoInterface
 import viewmodels.GameInfoViewModel
 
 @Composable
 fun GamePoster(
-    game: GameInfoViewModel,
+    gameInfoViewModel: GameInfoViewModel,
     gameInfoInterface: GameInfoInterface
 )
 {
@@ -41,7 +42,7 @@ fun GamePoster(
             .height(300.dp)
     ) {
         NetworkImage(
-            url = game.background,
+            url = gameInfoViewModel.background,
             modifier = Modifier.fillMaxSize()
         )
         Box(
@@ -82,12 +83,18 @@ fun GamePoster(
                         indication = rememberRipple(bounded = false),
                         onClick = {
                             //Compartir
-                            gameInfoInterface.compartir(game)
+                            gameInfoInterface.compartir(gameInfoViewModel)
+
+                            gameInfoViewModel.onEvent(
+                                DetailScreenEvent.ShareGame(
+                                    gameId = gameInfoViewModel.id,
+                                    dismissed = gameInfoViewModel.isFavorite
+                                )
+                            )
 
                         }
                     )
             )
         }
-
     }
 }

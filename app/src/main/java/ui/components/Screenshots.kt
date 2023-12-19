@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import coil.request.ImageRequest
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
+import com.example.fransoler.R
 
 @Composable
 fun Screenshots(
@@ -44,15 +45,26 @@ fun Screenshots(
 
 @Composable
 fun NetworkImage(
-    url: String,
+    url: String?,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
 ) {
-    AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
+    val context = LocalContext.current
+
+    val request = if (!url.isNullOrBlank()) {
+        ImageRequest.Builder(context)
             .data(url)
             .crossfade(true)
-            .build(),
+            .build()
+    } else {
+        val placeholderResId = R.drawable.ic_placeholder
+        ImageRequest.Builder(context)
+            .data(placeholderResId)
+            .build()
+    }
+
+    AsyncImage(
+        model = request,
         contentDescription = "",
         contentScale = contentScale,
         modifier = modifier

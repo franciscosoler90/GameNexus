@@ -90,7 +90,7 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(gameListViewModel.gameList) { game ->
-                    GameItem(gameViewModel = game) {
+                    GameItem(game = game) {
                         gameListCallbacks.onGameClicked(game)
                     }
                 }

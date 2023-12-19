@@ -19,32 +19,28 @@ import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.unit.dp
 import entidades.ConverterDate
 import entidades.Game
-import entidades.convertDateTo
+import utilidades.convertDateTo
 
 @Composable
 fun GameItem(
-    gameViewModel: Game,
+    game: Game,
     modifier: Modifier = Modifier,
     onItemClick: () -> Unit)
 {
-
-    val newRating = gameViewModel.rating
-
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(120.dp)
             .clickable(onClick = onItemClick)
     ) {
-        gameViewModel.background_image?.let {
-            NetworkImage(
-                url = it,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(85.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            )
-        }
+
+        NetworkImage(
+            url = game.background_image,
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(85.dp)
+                .clip(RoundedCornerShape(8.dp))
+        )
 
         Spacer(modifier = Modifier.width(16.dp))
 
@@ -53,7 +49,7 @@ fun GameItem(
         ) {
 
             Text(
-                text = gameViewModel.name,
+                text = game.name,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 1
@@ -61,9 +57,7 @@ fun GameItem(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            if(!newRating.isNullOrBlank()){
-
-                if(newRating.toFloat() > 0){
+            if(game.rating > 0){
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -74,34 +68,38 @@ fun GameItem(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "${newRating}/5",
+                            text = "${game.rating}/5",
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
-                    }
 
                 }
 
             }
 
-            if(gameViewModel.genres.isNotEmpty()){
+            if(game.genres.isNotEmpty()){
                 Spacer(modifier = Modifier.height(4.dp))
-                TagGroup(tag = gameViewModel.genres.flatMap { genres -> listOf(genres.name) }, isLimited = true)
+                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) })
                 Spacer(modifier = Modifier.height(4.dp))
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Rounded.DateRange,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary,
-                    modifier = Modifier.size(12.dp)
-                )
-                gameViewModel.released.let {
+            if(!game.released.isNullOrBlank()){
+
+                game.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    Icon(
+                        imageVector = Icons.Rounded.DateRange,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.size(12.dp)
+                    )
+
                     Spacer(modifier = Modifier.width(8.dp).height(8.dp))
-                    if (it != null) {
+
                         Text(
-                            text = it.convertDateTo(ConverterDate.FULL_DATE),
+                            text = it,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.secondary
                         )

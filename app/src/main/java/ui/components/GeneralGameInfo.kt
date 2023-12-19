@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import entidades.ConverterDate
-import entidades.convertDateTo
+import utilidades.convertDateTo
 import viewmodels.GameInfoViewModel
 
 @Composable
@@ -70,24 +70,34 @@ fun GeneralGameInfo(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(40.dp)
-        ) {
-            Column {
-                Text(
-                    text = "Fecha de lanzamiento",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+
+        if(!gameInfoViewModel.released.isNullOrBlank()){
+
+            gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
+
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(40.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = "Fecha de lanzamiento",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
             }
             Column {
                 Text(

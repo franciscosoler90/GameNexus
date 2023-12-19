@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
+import entidades.BottomBarState
 import entidades.Platform
 import interfaces.PlatformInterface
 import ui.components.PlatformList
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity(), PlatformInterface {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PlatformList(plataformaInterface)
+                    PlatformList(plataformaInterface, BottomBarState.HOME)
                 }
             }
         }

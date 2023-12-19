@@ -9,23 +9,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entidades.ScreenShot
 
-class GameScreenshotsViewModel(private val gameId : Int): ViewModel() {
+class GameScreenshotsViewModel(private val gameId : Long): ViewModel() {
 
-    var screenShots : List<ScreenShot> by mutableStateOf(listOf())
+    var screenshotsList : List<String> by mutableStateOf(listOf())
 
     init {
         loadData()
     }
 
     private fun loadData() {
-
         API.loadGameScreenshots(gameId,{ screenshots ->
-            screenShots = screenshots.result
-        }, {
+
+            val flatList = screenshots.result.flatMap { gameScreenshot ->
+                listOf(gameScreenshot.image) // Assuming image is a string in ScreenShot class
+            }
+
+            screenshotsList = flatList
+        }) {
             println("Error")
-        })
+        }
 
     }
 }

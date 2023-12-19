@@ -5,11 +5,11 @@
 package entidades
 
 data class DatosUsuario(
-    var login: String = "",
+    var email: String = "",
     var pwd: String = "",
     var remember: Boolean = false
 ) {
     fun isNotEmpty(): Boolean {
-        return login.isNotEmpty() && pwd.isNotEmpty()
+        return email.isNotEmpty() && pwd.isNotEmpty()
     }
 }

@@ -35,7 +35,7 @@ import viewmodels.GameScreenshotsViewModel
 fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 
     val pagerState = rememberPagerState(initialPage = 0, 0.0f
-    ) { screenshotsViewModel.screenShots.size }
+    ) { screenshotsViewModel.screenshotsList.size }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -46,7 +46,7 @@ fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 
             SliderView(pagerState, screenshotsViewModel)
             DotsIndicator(
-                totalDots = screenshotsViewModel.screenShots.size,
+                totalDots = screenshotsViewModel.screenshotsList.size,
                 selectedIndex = pagerState.currentPage
             )
             Spacer(modifier = Modifier.padding(4.dp))
@@ -63,13 +63,13 @@ fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
 
     HorizontalPager(
         state = state,
-        beyondBoundsPageCount = viewModel.screenShots.size,
+        beyondBoundsPageCount = viewModel.screenshotsList.size,
         modifier = Modifier
             .aspectRatio(4/3F,false)
             .fillMaxWidth()
     ) { page ->
 
-        imageUrl.value = viewModel.screenShots[page].image
+        imageUrl.value = viewModel.screenshotsList[page]
 
         Column(
             modifier = Modifier.fillMaxHeight(),

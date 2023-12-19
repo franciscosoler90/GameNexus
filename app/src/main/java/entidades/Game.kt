@@ -5,7 +5,7 @@
 package entidades
 
 data class Game(
-    val id: Int,
+    val id: Long,
     val metacritic: Int,
     val name: String,
     val slug: String,
@@ -18,7 +18,7 @@ data class Game(
     val description_raw: String?,
     val released: String?,
     val developers: List<Developer>,
-    val publishers: List<Publisher>
+    val publishers: List<Publisher>,
+    val isFavorite: Boolean,
+    val rating: String?
 )
-
-

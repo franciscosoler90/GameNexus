@@ -4,10 +4,7 @@
 
 package ui.components
 
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
@@ -41,7 +38,7 @@ fun searchBar(gameListCallbacks: GameListInterface, title : String) {
         active = active,
         onActiveChange = {active = it},
         placeholder = {
-            Text(text = "Buscar juegos en $title")
+            Text(text = "Buscar en $title")
         },
         leadingIcon = {
             IconButton(onClick = {

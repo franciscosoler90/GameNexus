@@ -69,8 +69,8 @@ fun LoginForm(loginCallbacks: LoginInterface) {
             )
             Spacer(modifier = Modifier.height(20.dp))
             LoginField(
-                value = datosUsuario.login,
-                onChange = { data -> datosUsuario = datosUsuario.copy(login = data) },
+                value = datosUsuario.email,
+                onChange = { data -> datosUsuario = datosUsuario.copy(email = data) },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))

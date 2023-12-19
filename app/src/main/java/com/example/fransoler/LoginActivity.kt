@@ -43,7 +43,7 @@ class LoginActivity : ComponentActivity(), LoginInterface {
 
     //Método al hacer clic en el botón Entrar
     override fun onLoginClicked(datosUsuario: DatosUsuario) {
-        auth.signInWithEmailAndPassword(datosUsuario.login, datosUsuario.pwd)
+        auth.signInWithEmailAndPassword(datosUsuario.email, datosUsuario.pwd)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Autenticación exitosa, redirige a MainActivity

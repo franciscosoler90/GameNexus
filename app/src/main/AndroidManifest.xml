@@ -28,7 +28,7 @@
             android:exported="false"
             android:theme="@style/Theme.FranSoler" />
         <activity
-            android:name=".GameInfo"
+            android:name=".GameInfoActivity"
             android:exported="false" />
         <activity
             android:name=".GameListActivity"

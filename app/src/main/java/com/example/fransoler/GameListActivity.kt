@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
 import interfaces.GameListInterface
-import ui.components.showGameList
+import ui.components.GameList
 import ui.theme.AppTheme
 import viewmodels.GameListViewModel
 
@@ -36,7 +36,7 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    showGameList(gameListInterface, platformId = platformId, page)
+                    GameList(gameListInterface, platformId = platformId, page)
                 }
             }
         }
@@ -45,7 +45,7 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
 
     //Método que se llama al clicar en un juego
     override fun onGameClicked(game: Game) {
-        val intent = Intent(this,GameInfo::class.java)
+        val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.gameId, game.id)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, page)

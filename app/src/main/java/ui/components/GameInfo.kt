@@ -90,7 +90,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         Icon(
                             imageVector = if (gameInfoViewModel.isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                             contentDescription = null,
-                            tint = Color.Red,
+                            tint = if (gameInfoViewModel.isFavorite) Color.Red else Color.White,
                             modifier = Modifier
                                 .size(32.dp)
                                 .padding(top = 4.dp)

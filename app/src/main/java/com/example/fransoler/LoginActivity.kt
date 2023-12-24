@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import com.google.firebase.auth.FirebaseAuth
 import entidades.DatosUsuario
 import interfaces.LoginInterface
-import ui.components.LoginForm
+import ui.components.login.LoginForm
 import ui.theme.AppTheme
 
 class LoginActivity : ComponentActivity(), LoginInterface {
@@ -55,5 +55,4 @@ class LoginActivity : ComponentActivity(), LoginInterface {
                 }
             }
     }
-
 }

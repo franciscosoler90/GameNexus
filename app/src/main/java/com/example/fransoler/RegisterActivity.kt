@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import com.google.firebase.auth.FirebaseAuth
 import entidades.DatosUsuario
 import interfaces.LoginInterface
-import ui.components.login.LoginForm
+import ui.components.login.RegisterForm
 import ui.theme.AppTheme
 
-class LoginActivity : ComponentActivity(), LoginInterface {
+class RegisterActivity : ComponentActivity(), LoginInterface {
 
     private lateinit var auth: FirebaseAuth
 
@@ -29,44 +29,45 @@ class LoginActivity : ComponentActivity(), LoginInterface {
         auth = FirebaseAuth.getInstance()
 
         setContent {
-            val loginInterface = this@LoginActivity // Accede a la instancia de la actividad
+            val loginInterface = this@RegisterActivity // Accede a la instancia de la actividad
 
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginForm(loginInterface)
+                    RegisterForm(loginInterface)
                 }
             }
         }
     }
 
-    //Método al hacer clic en el botón Entrar
     override fun signIn(datosUsuario: DatosUsuario) {
-        auth.signInWithEmailAndPassword(datosUsuario.email, datosUsuario.pwd)
+        //No hace nada
+    }
+
+    override fun createAccount(datosUsuario: DatosUsuario) {
+        auth.createUserWithEmailAndPassword(datosUsuario.email, datosUsuario.pwd)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    //val user = auth.currentUser
                     // Autenticación exitosa, redirige a MainActivity
                     val intent = Intent(baseContext, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     // Autenticación fallida, muestra un Toast
-                    Toast.makeText(baseContext, R.string.errorLogin, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, R.string.errorAuth, Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-    override fun createAccount(datosUsuario: DatosUsuario) {
-        //No hace nada
-    }
-
     override fun registerActivity() {
-        val intent = Intent(baseContext, RegisterActivity::class.java)
-        startActivity(intent)
+        //No hace nada
     }
 
     override fun loginActivity() {
-        //No hace nada
+        val intent = Intent(baseContext, LoginActivity::class.java)
+        startActivity(intent)
     }
+
 }

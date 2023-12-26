@@ -35,17 +35,16 @@ import interfaces.LoginInterface
 
 @Composable
 fun LoginForm(loginCallbacks: LoginInterface) {
-
     Surface {
         var datosUsuario by remember { mutableStateOf(DatosUsuario()) }
         val iconPainter = painterResource(id = R.drawable.ic_launcher_round)
 
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 30.dp)
+                .padding(horizontal = 30.dp, vertical = 120.dp)
         ) {
             Image(
                 painter = iconPainter,
@@ -65,7 +64,7 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                LoginField(
+                EmailField(
                     value = datosUsuario.email,
                     onChange = { data -> datosUsuario = datosUsuario.copy(email = data) },
                     modifier = Modifier.fillMaxWidth()
@@ -85,21 +84,18 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                     isChecked = datosUsuario.remember
                 )
             }
-
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-                    loginCallbacks.onLoginClicked(datosUsuario)
+                    loginCallbacks.signIn(datosUsuario)
                 },
                 enabled = datosUsuario.isNotEmpty(),
-                shape = RoundedCornerShape(5.dp),
+                shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Entrar")
             }
-
             Spacer(modifier = Modifier.height(20.dp))
-
             Text(
                 text = "¿No tienes una cuenta? Regístrate",
                 textAlign = TextAlign.Center,
@@ -109,7 +105,6 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                     loginCallbacks.registerActivity()
                 }
             )
-
         }
     }
 }

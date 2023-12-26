@@ -14,9 +14,12 @@
         android:theme="@style/Theme.FranSoler"
         tools:targetApi="s">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FranSoler" />
+        <activity
             android:name=".SearchActivity"
             android:exported="false"
-            android:label="@string/title_activity_search"
             android:theme="@style/Theme.FranSoler" />
         <activity
             android:name=".LoginActivity"

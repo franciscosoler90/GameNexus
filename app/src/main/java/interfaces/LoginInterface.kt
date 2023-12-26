@@ -7,7 +7,9 @@ package interfaces
 import entidades.DatosUsuario
 
 interface LoginInterface {
-    fun onLoginClicked(datosUsuario: DatosUsuario)
+    fun signIn(datosUsuario: DatosUsuario)
+
+    fun createAccount(datosUsuario: DatosUsuario)
 
     fun registerActivity()
 

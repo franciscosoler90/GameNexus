@@ -4,6 +4,7 @@
 
 package ui.components.login
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import com.google.android.material.R
 
 @Composable
@@ -72,6 +74,7 @@ fun PasswordField(
         placeholder = {},
         label = { Text(label) },
         singleLine = true,
-        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
+        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        shape = RoundedCornerShape(8.dp),
     )
 }

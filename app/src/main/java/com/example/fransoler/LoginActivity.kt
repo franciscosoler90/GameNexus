@@ -30,6 +30,7 @@ class LoginActivity : ComponentActivity(), LoginInterface {
 
         setContent {
             val loginInterface = this@LoginActivity // Accede a la instancia de la actividad
+
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -54,5 +55,13 @@ class LoginActivity : ComponentActivity(), LoginInterface {
                     Toast.makeText(this, R.string.errorLogin, Toast.LENGTH_LONG).show()
                 }
             }
+    }
+
+    override fun registerActivity() {
+        println("register")
+    }
+
+    override fun loginActivity() {
+        println("login")
     }
 }

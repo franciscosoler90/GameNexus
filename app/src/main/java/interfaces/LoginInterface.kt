@@ -8,4 +8,8 @@ import entidades.DatosUsuario
 
 interface LoginInterface {
     fun onLoginClicked(datosUsuario: DatosUsuario)
+
+    fun registerActivity()
+
+    fun loginActivity()
 }

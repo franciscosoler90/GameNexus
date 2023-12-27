@@ -4,7 +4,7 @@
 
 package interfaces
 
-import viewmodels.GameInfoViewModel
+import entidades.Game
 
 interface GameInfoInterface {
 
@@ -12,5 +12,5 @@ interface GameInfoInterface {
 
     fun back()
 
-    fun compartir(game : GameInfoViewModel)
+    fun compartir(game : Game)
 }

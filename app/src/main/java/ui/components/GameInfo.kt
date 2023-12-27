@@ -58,7 +58,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                 verticalArrangement = Arrangement.spacedBy((-30).dp),
             ) {
 
-                GamePoster(gameInfoViewModel = gameInfoViewModel, gameInfoInterface)
+                GamePoster(game = gameInfoViewModel.game, gameInfoInterface)
 
                 Column(
                     modifier = Modifier
@@ -128,9 +128,18 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         color = MaterialTheme.colorScheme.secondary,
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    if(gameInfoViewModel.listScreenshots.isNotEmpty()){
+                        Spacer(modifier = Modifier.height(24.dp))
 
-                    Screenshots(urls = gameInfoViewModel.listScreenshots)
+                        Text(
+                            text = "Imágenes",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Screenshots(urls = gameInfoViewModel.listScreenshots)
+                    }
 
                 }
             }

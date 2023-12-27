@@ -23,8 +23,6 @@ fun Screenshots(
 {
     Column(modifier = modifier) {
 
-        Spacer(modifier = Modifier.padding(8.dp))
-
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
         ) {

@@ -23,19 +23,19 @@ import androidx.compose.ui.unit.dp
 fun TagGroup(
     tag: List<String>,
     modifier: Modifier = Modifier,
-    isLimited: Boolean = false)
-{
-    val limitedGenres = remember(tag) {
-        if (tag.size >= 3) 3 else tag.size
+    isLimited: Boolean = false
+) {
+    val limitedTags = remember(tag, isLimited) {
+        if (isLimited) tag.take(2) else tag
     }
 
     FlowRow(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        repeat(if (isLimited) limitedGenres else tag.size) {
-            TagChip(name = tag[it])
+        limitedTags.forEach { tagName ->
+            TagChip(name = tagName)
         }
     }
 }

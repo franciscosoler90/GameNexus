@@ -58,28 +58,25 @@ fun GameItem(
             Spacer(modifier = Modifier.height(4.dp))
 
             if(game.rating > 0){
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Rounded.Star,
-                            contentDescription = null,
-                            tint = Yellow,
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Spacer(modifier = Modifier.width(2.dp))
-                        Text(
-                            text = "${game.rating}/5",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Rounded.Star,
+                        contentDescription = null,
+                        tint = Yellow,
+                        modifier = Modifier.size(12.dp)
+                    )
+                    Spacer(modifier = Modifier.width(2.dp))
+                    Text(
+                        text = "${game.rating}/5",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
-
             }
 
             if(game.genres.isNotEmpty()){
                 Spacer(modifier = Modifier.height(4.dp))
-                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) })
+                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) }, modifier, true)
                 Spacer(modifier = Modifier.height(4.dp))
             }
 

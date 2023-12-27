@@ -71,10 +71,8 @@ fun GeneralGameInfo(
             }
         }
 
-        if(!gameInfoViewModel.released.isNullOrBlank()){
-
+        if(gameInfoViewModel.released.isNotBlank()){
             gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
-
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -88,7 +86,7 @@ fun GeneralGameInfo(
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(2.dp))
                         gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
                             Text(
                                 text = it,
@@ -99,14 +97,18 @@ fun GeneralGameInfo(
                     }
                 }
             }
+        }
+
+        if(gameInfoViewModel.genres.isNotEmpty()){
             Column {
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Géneros",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                TagGroup(tag = gameInfoViewModel.genres)
+                TagGroup(tag = gameInfoViewModel.genres.flatMap { genres -> listOf(genres) }, modifier, false)
             }
         }
     }

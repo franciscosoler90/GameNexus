@@ -17,4 +17,7 @@
     <string name="errorLogin">Error de inicio de sesión</string>
     <string name="errorAuth">Autenticación fallida</string>
 
+
+    <string name="description">Descripción</string>
+
 </resources>

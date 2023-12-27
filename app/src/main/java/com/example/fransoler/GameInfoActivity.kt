@@ -46,15 +46,15 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
 
     override fun changeFavorite(newFavorite: Boolean) {
         if(newFavorite){
-            Toast.makeText(this,R.string.addFavorite, Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext,R.string.addFavorite, Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(this,R.string.deleteFavorite, Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext,R.string.deleteFavorite, Toast.LENGTH_SHORT).show()
         }
     }
 
     //Volver atrás
     override fun back(){
-        val intent = Intent(this,GameListActivity::class.java)
+        val intent = Intent(baseContext,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, page)
         startActivity(intent)

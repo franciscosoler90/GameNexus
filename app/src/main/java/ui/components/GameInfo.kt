@@ -34,21 +34,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import entidades.DetailScreenEvent
 import interfaces.GameInfoInterface
 import viewmodels.GameInfoViewModel
-import viewmodels.GameScreenshotsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
 
     val gameInfoViewModel = GameInfoViewModel(gameId)
-    val screenshotsViewModel = GameScreenshotsViewModel(gameId)
-
-    val context = LocalContext.current
 
     Scaffold { _ ->
 
@@ -78,7 +73,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = gameInfoViewModel.name,
+                            text = gameInfoViewModel.game.name,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.weight(1F)
@@ -100,7 +95,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                                         gameInfoViewModel.isFavorite = !gameInfoViewModel.isFavorite
                                         gameInfoViewModel.onEvent(
                                             DetailScreenEvent.BookmarkGame(
-                                                id = gameInfoViewModel.id,
+                                                id = gameInfoViewModel.game.id,
                                                 bookmarked = gameInfoViewModel.isFavorite
                                             )
                                         )
@@ -128,14 +123,14 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = gameInfoViewModel.description.ifBlank { "-" },
+                        text = gameInfoViewModel.cleanDescription,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.secondary,
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Screenshots(urls = screenshotsViewModel.screenshotsList)
+                    Screenshots(urls = gameInfoViewModel.listScreenshots)
 
                 }
             }

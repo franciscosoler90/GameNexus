@@ -49,7 +49,7 @@ fun GeneralGameInfo(
                         .background(MaterialTheme.colorScheme.primary)
                 ) {
                     Text(
-                        text = if (gameInfoViewModel.metacritic != 0) gameInfoViewModel.metacritic.toString() else "-",
+                        text = if (gameInfoViewModel.game.metacritic != 0) gameInfoViewModel.game.metacritic.toString() else "-",
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.align(Alignment.Center)
@@ -64,15 +64,15 @@ fun GeneralGameInfo(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 RatingBar(
-                    rating = gameInfoViewModel.rating,
+                    rating = gameInfoViewModel.game.rating.toString(),
                     modifier = Modifier
                         .height(16.dp)
                 )
             }
         }
 
-        if(gameInfoViewModel.released.isNotBlank()){
-            gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
+        if(gameInfoViewModel.game.released?.isNotBlank() == true){
+            gameInfoViewModel.game.released!!.convertDateTo(ConverterDate.FULL_DATE)?.let {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -87,7 +87,7 @@ fun GeneralGameInfo(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(2.dp))
-                        gameInfoViewModel.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
+                        gameInfoViewModel.game.released!!.convertDateTo(ConverterDate.FULL_DATE)?.let {
                             Text(
                                 text = it,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -99,7 +99,7 @@ fun GeneralGameInfo(
             }
         }
 
-        if(gameInfoViewModel.genres.isNotEmpty()){
+        if(gameInfoViewModel.game.genres.isNotEmpty()){
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -108,7 +108,7 @@ fun GeneralGameInfo(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                TagGroup(tag = gameInfoViewModel.genres.flatMap { genres -> listOf(genres) }, modifier, false)
+                TagGroup(tag = gameInfoViewModel.listGenres, modifier, false)
             }
         }
     }

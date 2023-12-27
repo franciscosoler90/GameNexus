@@ -30,6 +30,9 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
         platformId = intent.getIntExtra(Constant.platformId,0)
         page = intent.getIntExtra(Constant.page,1)
 
+        val gameInfoViewModel = GameInfoViewModel(intent.getLongExtra(Constant.gameId,1))
+
+
         setContent {
             val gameInfoInterface = this@GameInfoActivity // Accede a la instancia de la actividad
 

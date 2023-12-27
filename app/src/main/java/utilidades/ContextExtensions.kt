@@ -15,7 +15,7 @@ fun Context.shareLink(gameInfoViewModel : GameInfoViewModel) {
         action = Intent.ACTION_SEND
         type = "text/plain"
         putExtra(Intent.EXTRA_SUBJECT, Constant.appName)
-        putExtra(Intent.EXTRA_TEXT, Constant.urlGames + gameInfoViewModel.slug)
+        putExtra(Intent.EXTRA_TEXT, Constant.urlGames + gameInfoViewModel.game.slug)
     }
     startActivity(Intent.createChooser(shareIntent, null))
 

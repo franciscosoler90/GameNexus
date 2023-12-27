@@ -27,15 +27,15 @@ import coil.size.Scale
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import viewmodels.GameScreenshotsViewModel
+import viewmodels.GameInfoViewModel
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
+fun ImageSlider(gameInfoViewModel: GameInfoViewModel) {
 
     val pagerState = rememberPagerState(initialPage = 0, 0.0f
-    ) { screenshotsViewModel.screenshotsList.size }
+    ) { gameInfoViewModel.listScreenshots.size }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -44,9 +44,9 @@ fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 
         Column {
 
-            SliderView(pagerState, screenshotsViewModel)
+            SliderView(pagerState, gameInfoViewModel)
             DotsIndicator(
-                totalDots = screenshotsViewModel.screenshotsList.size,
+                totalDots = gameInfoViewModel.listScreenshots.size,
                 selectedIndex = pagerState.currentPage
             )
             Spacer(modifier = Modifier.padding(4.dp))
@@ -57,19 +57,19 @@ fun ImageSlider(screenshotsViewModel: GameScreenshotsViewModel) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SliderView(state: PagerState, viewModel: GameScreenshotsViewModel) {
+fun SliderView(state: PagerState, gameInfoViewModel: GameInfoViewModel) {
 
     val imageUrl = remember { mutableStateOf("") }
 
     HorizontalPager(
         state = state,
-        beyondBoundsPageCount = viewModel.screenshotsList.size,
+        beyondBoundsPageCount = gameInfoViewModel.listScreenshots.size,
         modifier = Modifier
             .aspectRatio(4/3F,false)
             .fillMaxWidth()
     ) { page ->
 
-        imageUrl.value = viewModel.screenshotsList[page]
+        imageUrl.value = gameInfoViewModel.listScreenshots[page]
 
         Column(
             modifier = Modifier.fillMaxHeight(),

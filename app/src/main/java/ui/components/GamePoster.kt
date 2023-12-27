@@ -42,7 +42,7 @@ fun GamePoster(
             .height(300.dp)
     ) {
         NetworkImage(
-            url = gameInfoViewModel.background,
+            url = gameInfoViewModel.game.background_image,
             modifier = Modifier.fillMaxSize()
         )
         Box(
@@ -87,7 +87,7 @@ fun GamePoster(
 
                             gameInfoViewModel.onEvent(
                                 DetailScreenEvent.ShareGame(
-                                    gameId = gameInfoViewModel.id,
+                                    gameId = gameInfoViewModel.game.id,
                                     dismissed = gameInfoViewModel.isFavorite
                                 )
                             )

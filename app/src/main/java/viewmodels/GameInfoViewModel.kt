@@ -10,73 +10,51 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
 import entidades.DetailScreenEvent
-import entidades.DetailScreenState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import entidades.Game
 
 class GameInfoViewModel(private val gameId: Long): ViewModel() {
 
-    var id by mutableStateOf(0L)
-    var background by mutableStateOf("")
-    var name by mutableStateOf("")
-    var description by mutableStateOf("")
-    var released by mutableStateOf("")
-    var slug by mutableStateOf("")
-    var rating by mutableStateOf("")
-    var metacritic by mutableStateOf(0)
-    var genres : List<String> by mutableStateOf(listOf())
-    var platforms : List<String> by mutableStateOf(listOf())
-    var publishers : List<String> by mutableStateOf(listOf())
-    var developers : List<String> by mutableStateOf(listOf())
+    var game by mutableStateOf(Game(0L, "", "", "", null, "", "", "", false, 0, 0.0f, emptyList(), emptyList(), emptyList(), emptyList()))
+    var cleanDescription by mutableStateOf("")
+    var listGenres by mutableStateOf<List<String>>(emptyList())
+    var listPlatforms by mutableStateOf<List<String>>(emptyList())
+    var listPublishers by mutableStateOf<List<String>>(emptyList())
+    var listDevelopers by mutableStateOf<List<String>>(emptyList())
+    var listScreenshots by mutableStateOf<List<String>>(emptyList())
     var isFavorite by mutableStateOf(false)
-
-
-    private val _uiState = MutableStateFlow(DetailScreenState())
-    val uiState = _uiState.asStateFlow()
 
     init {
         loadData()
     }
 
     fun onEvent(event: DetailScreenEvent) {
-
-        println("DetailScreenEvent")
-        println(event.toString())
-
-        when (event) {
-
-            else -> {}
-        }
+        // Lógica de eventos si es necesaria
     }
 
     private fun loadData() {
+        loadGameDetails()
+        loadGameScreenshots()
+    }
 
+    private fun loadGameDetails() {
         API.loadGameDetails(gameId,{ game ->
 
-            id = game.id
-            slug = game.slug
-            name = game.name.trim()
-            rating = game.rating.toString()
-            metacritic = game.metacritic
-            released = game.released.toString().ifBlank { "" }
-            isFavorite = game.isFavorite
-
-            background = game.background_image.toString()
+            this.game = game
 
             val publisherFlatList = game.publishers.flatMap { publishers -> listOf(publishers.name) }
-            publishers = publisherFlatList
+            listPublishers = publisherFlatList
 
             val genresFlatList = game.genres.flatMap { genres -> listOf(genres.name) }
-            genres = genresFlatList
+            listGenres = genresFlatList
 
             val platformsFlatList = game.platforms.flatMap { platforms -> listOf(platforms.platform.name) }
-            platforms = platformsFlatList
+            listPlatforms = platformsFlatList
 
             val developersFlatList = game.developers.flatMap { developers -> listOf(developers.name) }
-            developers = developersFlatList
+            listDevelopers = developersFlatList
 
             //Si el valor description_raw está vacio, le pasamos el valor description formateado
-            description = game.description_raw.ifEmpty {
+            cleanDescription = game.description_raw.ifEmpty {
                 game.description.replace("<[^>]*>".toRegex(), "")
             }
 
@@ -86,4 +64,15 @@ class GameInfoViewModel(private val gameId: Long): ViewModel() {
 
     }
 
+    private fun loadGameScreenshots() {
+        API.loadGameScreenshots(gameId,{ screenshots ->
+
+            val flatList = screenshots.result.flatMap { gameScreenshot -> listOf(gameScreenshot.image) }
+            listScreenshots = flatList
+        }) {
+            println("Error")
+        }
+
+
+    }
 }

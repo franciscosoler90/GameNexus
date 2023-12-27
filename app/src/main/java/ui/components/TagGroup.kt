@@ -26,7 +26,7 @@ fun TagGroup(
     isLimited: Boolean = false
 ) {
     val limitedTags = remember(tag, isLimited) {
-        if (isLimited) tag.take(2) else tag
+        if (isLimited) tag.take(2).sorted() else tag.sorted()
     }
 
     FlowRow(

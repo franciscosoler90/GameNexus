@@ -10,48 +10,34 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
 import entidades.DetailScreenEvent
+import entidades.DetailScreenState
 import entidades.Game
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class GameInfoViewModel(private val gameId: Long): ViewModel() {
+class GameInfoViewModel(): ViewModel() {
+
+    private val _uiState = MutableStateFlow(DetailScreenState())
+    val uiState = _uiState.asStateFlow()
 
     var game by mutableStateOf(Game(0L, "", "", "", null, "", "", "", false, 0, 0.0f, emptyList(), emptyList(), emptyList(), emptyList()))
     var cleanDescription by mutableStateOf("")
-    var listGenres by mutableStateOf<List<String>>(emptyList())
-    var listPlatforms by mutableStateOf<List<String>>(emptyList())
-    var listPublishers by mutableStateOf<List<String>>(emptyList())
-    var listDevelopers by mutableStateOf<List<String>>(emptyList())
     var listScreenshots by mutableStateOf<List<String>>(emptyList())
-    var isFavorite by mutableStateOf(false)
 
-    init {
-        loadData()
+    fun onInit(gameId: Long) {
+        loadGameDetails(gameId)
+        loadGameScreenshots(gameId)
     }
 
     fun onEvent(event: DetailScreenEvent) {
         // Lógica de eventos si es necesaria
     }
 
-    private fun loadData() {
-        loadGameDetails()
-        loadGameScreenshots()
-    }
-
-    private fun loadGameDetails() {
+    private fun loadGameDetails(gameId : Long) {
         API.loadGameDetails(gameId,{ game ->
 
-            this.game = game
-
-            val publisherFlatList = game.publishers.flatMap { publishers -> listOf(publishers.name) }
-            listPublishers = publisherFlatList
-
-            val genresFlatList = game.genres.flatMap { genres -> listOf(genres.name) }
-            listGenres = genresFlatList
-
-            val platformsFlatList = game.platforms.flatMap { platforms -> listOf(platforms.platform.name) }
-            listPlatforms = platformsFlatList
-
-            val developersFlatList = game.developers.flatMap { developers -> listOf(developers.name) }
-            listDevelopers = developersFlatList
+            _uiState.update { it.copy(game = game) }
 
             //Si el valor description_raw está vacio, le pasamos el valor description formateado
             cleanDescription = game.description_raw.ifEmpty {
@@ -59,20 +45,22 @@ class GameInfoViewModel(private val gameId: Long): ViewModel() {
             }
 
         }) {
-            println("Error")
+            println("Error - GameInfoViewModel - loadGameDetails")
         }
 
     }
 
-    private fun loadGameScreenshots() {
+    private fun loadGameScreenshots(gameId : Long) {
         API.loadGameScreenshots(gameId,{ screenshots ->
 
             val flatList = screenshots.result.flatMap { gameScreenshot -> listOf(gameScreenshot.image) }
             listScreenshots = flatList
+
+            _uiState.update { it.copy(listScreenshots = listScreenshots) }
         }) {
-            println("Error")
+            println("Error - GameInfoViewModel - loadGameScreenshots")
         }
 
-
     }
+
 }

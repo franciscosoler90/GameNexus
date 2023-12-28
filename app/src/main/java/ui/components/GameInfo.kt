@@ -4,7 +4,6 @@
 
 package ui.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,46 +25,60 @@ import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import entidades.DetailScreenEvent
+import entidades.Game
 import interfaces.GameInfoInterface
 import viewmodels.GameInfoViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @Composable
-fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
+fun GameInfo(
+    game: Game,
+    gameInfoInterface: GameInfoInterface,
+    gameInfoViewModel: GameInfoViewModel
+){
 
-    val gameInfoViewModel = GameInfoViewModel(gameId)
+    LaunchedEffect(key1 = Unit, block = {
+        gameInfoViewModel.onInit(game.id)
+    })
 
-    Scaffold { _ ->
+    var savedState by remember { mutableStateOf(game.isFavorite) }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+    val state by gameInfoViewModel.uiState.collectAsState()
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+
+        state.game?.let { game ->
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy((-30).dp),
             ) {
 
-                GamePoster(game = gameInfoViewModel.game, gameInfoInterface)
+                GamePoster(game = game, gameInfoInterface)
 
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                        .padding(24.dp)
                         .background(MaterialTheme.colorScheme.background)
+                        .padding(24.dp)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -73,7 +86,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = gameInfoViewModel.game.name,
+                            text = game.name,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.weight(1F)
@@ -82,9 +95,9 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Icon(
-                            imageVector = if (gameInfoViewModel.isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                            imageVector = if (savedState) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                             contentDescription = null,
-                            tint = if (gameInfoViewModel.isFavorite) Color.Red else Color.White,
+                            tint = if (savedState) Color.Red else Color.White,
                             modifier = Modifier
                                 .size(32.dp)
                                 .padding(top = 4.dp)
@@ -92,16 +105,15 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = rememberRipple(bounded = false),
                                     onClick = {
-                                        gameInfoViewModel.isFavorite = !gameInfoViewModel.isFavorite
+                                        savedState = !savedState
                                         gameInfoViewModel.onEvent(
                                             DetailScreenEvent.BookmarkGame(
-                                                id = gameInfoViewModel.game.id,
-                                                bookmarked = gameInfoViewModel.isFavorite
+                                                id = game.id,
+                                                bookmarked = savedState
                                             )
                                         )
                                         //Favorito
-                                        gameInfoInterface.changeFavorite(gameInfoViewModel.isFavorite)
-
+                                        gameInfoInterface.changeFavorite(savedState)
 
                                     }
                                 )
@@ -110,7 +122,7 @@ fun GameInfo(gameInfoInterface: GameInfoInterface, gameId: Long){
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    GeneralGameInfo(gameInfoViewModel = gameInfoViewModel)
+                    GeneralGameInfo(game = game)
 
                     Spacer(modifier = Modifier.height(24.dp))
 

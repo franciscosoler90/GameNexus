@@ -75,8 +75,10 @@ fun GameItem(
             }
 
             if(game.genres.isNotEmpty()){
+                val genresList = game.genres.flatMap { genres -> listOf(genres.name) }.filterNotNull()
+
                 Spacer(modifier = Modifier.height(4.dp))
-                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) }, modifier, true)
+                TagGroup(tag = genresList, modifier, true)
                 Spacer(modifier = Modifier.height(4.dp))
             }
 

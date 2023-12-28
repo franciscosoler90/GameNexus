@@ -21,7 +21,7 @@ data class Game(
     @ColumnInfo(name = "isFavorite") val isFavorite: Boolean,
     @ColumnInfo(name = "metacritic") val metacritic: Int,
     @ColumnInfo(name = "rating") val rating: Float,
-    @ColumnInfo(name = "platforms") val platforms: List<Platforms>,
+    @ColumnInfo(name = "platforms") val platforms: List<ParentPlatform.Platform>,
     @ColumnInfo(name = "genres") val genres: List<Genre>,
     @ColumnInfo(name = "developers") val developers: List<Developer>,
     @ColumnInfo(name = "publishers") val publishers: List<Publisher>,

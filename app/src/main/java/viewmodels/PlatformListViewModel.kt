@@ -9,11 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entidades.Platform
+import entidades.ParentPlatform
 
 class PlatformListViewModel: ViewModel() {
 
-    var platformList: List<Platform> by mutableStateOf(listOf())
+    var platformList: List<ParentPlatform.Platform> by mutableStateOf(listOf())
 
     init {
         loadData()
@@ -24,7 +24,7 @@ class PlatformListViewModel: ViewModel() {
             // Convierte la lista de PlatformParent a una lista de Platform utilizando flatMap
             platformList = result.result.flatMap { platformParent ->
                 platformParent.platforms // Accede a la lista de plataformas dentro de PlatformParent
-            } }, { println("Error") })
+            } }, { println("Error - PlatformListViewModel") })
     }
 
 

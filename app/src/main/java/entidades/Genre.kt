@@ -4,15 +4,15 @@
 
 package entidades
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "genre")
+@JsonClass(generateAdapter = true)
 data class Genre(
-    @PrimaryKey val id:Int,
-    @ColumnInfo(name = "name") val name:String,
-    @ColumnInfo(name = "slug") val slug:String,
-    @ColumnInfo(name = "image_background") val image_background:String,
+    @Json(name = "id")
+    val id: Int? = null,
+    @Json(name = "name")
+    val name: String? = null,
+    @Json(name = "image_background")
+    val imageBackground: String? = null
 )
-

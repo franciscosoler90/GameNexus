@@ -22,12 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import entidades.ConverterDate
+import entidades.Game
 import utilidades.convertDateTo
-import viewmodels.GameInfoViewModel
 
 @Composable
 fun GeneralGameInfo(
-    gameInfoViewModel: GameInfoViewModel,
+    game : Game,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -49,7 +49,7 @@ fun GeneralGameInfo(
                         .background(MaterialTheme.colorScheme.primary)
                 ) {
                     Text(
-                        text = if (gameInfoViewModel.game.metacritic != 0) gameInfoViewModel.game.metacritic.toString() else "-",
+                        text = if (game.metacritic != 0) game.metacritic.toString() else "-",
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.align(Alignment.Center)
@@ -64,15 +64,15 @@ fun GeneralGameInfo(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 RatingBar(
-                    rating = gameInfoViewModel.game.rating.toString(),
+                    rating = game.rating.toString(),
                     modifier = Modifier
                         .height(16.dp)
                 )
             }
         }
 
-        if(gameInfoViewModel.game.released?.isNotBlank() == true){
-            gameInfoViewModel.game.released!!.convertDateTo(ConverterDate.FULL_DATE)?.let {
+        if(game.released?.isNotBlank() == true){
+            game.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -87,7 +87,7 @@ fun GeneralGameInfo(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(2.dp))
-                        gameInfoViewModel.game.released!!.convertDateTo(ConverterDate.FULL_DATE)?.let {
+                        game.released.convertDateTo(ConverterDate.FULL_DATE)?.let {
                             Text(
                                 text = it,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -99,7 +99,7 @@ fun GeneralGameInfo(
             }
         }
 
-        if(gameInfoViewModel.game.genres.isNotEmpty()){
+        if(game.genres.isNotEmpty()){
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -108,7 +108,7 @@ fun GeneralGameInfo(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                TagGroup(tag = gameInfoViewModel.listGenres, modifier, false)
+                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) }.filterNotNull(), modifier, false)
             }
         }
     }

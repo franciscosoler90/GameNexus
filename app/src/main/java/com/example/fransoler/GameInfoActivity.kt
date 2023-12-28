@@ -31,8 +31,10 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
         platformId = intent.getIntExtra(Constant.platformId,0)
         page = intent.getIntExtra(Constant.page,1)
 
-        val gameInfoViewModel = GameInfoViewModel(intent.getLongExtra(Constant.gameId,1))
+        val gameId = intent.getLongExtra(Constant.gameId,0)
+        val gameInfoViewModel = GameInfoViewModel()
 
+        gameInfoViewModel.onInit(gameId)
 
         setContent {
             val gameInfoInterface = this@GameInfoActivity // Accede a la instancia de la actividad
@@ -42,7 +44,7 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameInfo(gameInfoInterface, intent.getLongExtra(Constant.gameId,1))
+                    GameInfo(gameInfoViewModel.game, gameInfoInterface, gameInfoViewModel)
                 }
             }
         }
@@ -67,6 +69,5 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
     override fun compartir(game: Game) {
         this.shareLink(game)
     }
-
 
 }

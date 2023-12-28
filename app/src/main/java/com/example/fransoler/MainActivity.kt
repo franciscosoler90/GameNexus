@@ -13,7 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.BottomBarState
-import entidades.Platform
+import entidades.ParentPlatform
 import interfaces.PlatformInterface
 import ui.components.PlatformList
 import ui.theme.AppTheme
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), PlatformInterface {
     }
 
     //Método que se llama al clicar
-    override fun onPlatformClicked(platform: Platform) {
+    override fun onPlatformClicked(platform: ParentPlatform.Platform) {
         val intent = Intent(this,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platform.id)
         startActivity(intent)

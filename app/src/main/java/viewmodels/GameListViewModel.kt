@@ -25,7 +25,7 @@ class GameListViewModel(private val platformId : Int, private val page : Int): V
             this.gameList = result.result
             this.next = result.next
         }, {
-            println("Error")
+            println("Error - GameListViewModel - loadData")
         })
     }
 
@@ -34,7 +34,7 @@ class GameListViewModel(private val platformId : Int, private val page : Int): V
             this.gameList = result.result
             this.next = result.next
         }, {
-            println("Error")
+            println("Error - GameListViewModel - updatePage")
         })
     }
 

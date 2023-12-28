@@ -9,5 +9,6 @@ data class DetailScreenState(
     val trailerUrl: String? = null,
     val isLoading: Boolean = false,
     val shareSheetGame: Game? = null,
-    val error: String? = null
+    val error: String? = null,
+    val listScreenshots : List<String> = emptyList()
 )

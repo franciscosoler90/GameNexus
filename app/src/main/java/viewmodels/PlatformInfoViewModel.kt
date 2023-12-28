@@ -23,7 +23,7 @@ class PlatformInfoViewModel(private val platformId : Int): ViewModel() {
         API.loadGamesPlatform(platformId,{ platform ->
             platformName = platform.name
         }, {
-            println("Error")
+            println("Error - PlatformInfoViewModel")
         })
 
     }

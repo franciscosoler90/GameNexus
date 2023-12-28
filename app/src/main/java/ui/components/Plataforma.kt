@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import entidades.BottomBarState
-import entidades.Platform
+import entidades.ParentPlatform.Platform
 import interfaces.PlatformInterface
 import viewmodels.PlatformListViewModel
 
@@ -38,7 +38,7 @@ import viewmodels.PlatformListViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun PlatformList(plataformaCallbacks: PlatformInterface, bottomBarState: BottomBarState) {
-    val viewModel = PlatformListViewModel()
+    val platformListViewModel = PlatformListViewModel()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -61,7 +61,7 @@ fun PlatformList(plataformaCallbacks: PlatformInterface, bottomBarState: BottomB
                     .fillMaxSize()
                     .padding(0.dp, 8.dp)
             ) {
-                items(viewModel.platformList) { plataforma ->
+                items(platformListViewModel.platformList) { plataforma ->
                     PlataformaItem(platform = plataforma) {
                         plataformaCallbacks.onPlatformClicked(plataforma)
                     }
@@ -108,7 +108,7 @@ fun PlataformaItem(platform: Platform, onItemClick: () -> Unit) {
 
                 Image(
                     painter = painter,
-                    contentDescription = platform.image_background,
+                    contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
@@ -117,18 +117,20 @@ fun PlataformaItem(platform: Platform, onItemClick: () -> Unit) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            platform.name.let {
 
-            Text(
-                text = platform.name,
-                fontWeight = FontWeight.Bold,
-                style = typography.displayLarge,
-                color = MaterialTheme.colorScheme.inversePrimary,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-            )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = it,
+                    fontWeight = FontWeight.Bold,
+                    style = typography.displayLarge,
+                    color = MaterialTheme.colorScheme.inversePrimary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
 
         }
     }

@@ -25,7 +25,7 @@ object API {
         fun getPlatforms(
             @Query("ordering") ordering: String,
             @Query("key") apiKey: String
-        ): Call<RawgData<List<PlatformParent>>>
+        ): Call<RawgData<List<ParentPlatform>>>
 
         @GET("platforms/{id}")
         fun getPlatform(
@@ -70,19 +70,19 @@ object API {
         return OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build()
     }
 
-    fun loadPlatforms(success: (platformList: RawgData<List<PlatformParent>>  ) -> Unit, failure: () -> Unit) {
+    fun loadPlatforms(success: (platformList: RawgData<List<ParentPlatform>>  ) -> Unit, failure: () -> Unit) {
 
-        getRetroFit().getPlatforms("name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<PlatformParent>>> {
-            override fun onResponse(call: Call<RawgData<List<PlatformParent>>>, response: Response<RawgData<List<PlatformParent>>>) {
+        getRetroFit().getPlatforms("name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<ParentPlatform>>> {
+            override fun onResponse(call: Call<RawgData<List<ParentPlatform>>>, response: Response<RawgData<List<ParentPlatform>>>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
                 }else{
                     println(response.errorBody())
-                    println("ERROR")
+                    println("ERROR - loadPlatforms")
                 }
             }
-            override fun onFailure(call: Call<RawgData<List<PlatformParent>>>, t: Throwable) {
+            override fun onFailure(call: Call<RawgData<List<ParentPlatform>>>, t: Throwable) {
                 println(t.message)
                 failure()
             }
@@ -103,7 +103,7 @@ object API {
                     success((response.body()!!))
                 }else{
                     println(response.errorBody())
-                    println("ERROR")
+                    println("ERROR - loadGamesPlatform")
                 }
             }
             override fun onFailure(call: Call<Game>, t: Throwable) {
@@ -127,7 +127,7 @@ object API {
                     success((response.body()!!))
                 }else{
                     println(response.errorBody())
-                    println("ERROR")
+                    println("ERROR - loadGames")
                 }
             }
             override fun onFailure(call: Call<RawgData<List<Game>>>, t: Throwable) {
@@ -150,7 +150,7 @@ object API {
                     success((response.body()!!))
                 }else{
                     println(response.errorBody())
-                    println("ERROR")
+                    println("ERROR - loadGameDetails")
                 }
             }
             override fun onFailure(call: Call<Game>, t: Throwable) {
@@ -174,7 +174,7 @@ object API {
                     success((response.body()!!))
                 }else{
                     println(response.errorBody())
-                    println("ERROR")
+                    println("ERROR - loadGameScreenshots")
                 }
             }
             override fun onFailure(call: Call<RawgData<List<ScreenShot>>>, t: Throwable) {

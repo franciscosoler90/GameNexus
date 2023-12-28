@@ -4,18 +4,18 @@
 
 package ui.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
@@ -31,18 +31,13 @@ import interfaces.GameListInterface
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
-
     val gameListViewModel = GameListViewModel(platformId, page)
     val platformViewModel = PlatformInfoViewModel(platformId)
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 24.dp),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             searchBar(gameListCallbacks, platformViewModel.platformName)
         },
@@ -76,17 +71,18 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
                 }
             }
         }
-    ) {
-        // Column que contiene el LazyColumn
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp, bottom = 60.dp) // Ajusta el espacio superior e inferior
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(vertical = 24.dp), // Ajusta el espacio vertical entre elementos
+                    .padding(horizontal = 16.dp)
+                    .fillMaxSize()
+                    .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(gameListViewModel.gameList) { game ->
@@ -96,5 +92,6 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
                 }
             }
         }
+
     }
 }

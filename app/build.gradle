@@ -119,7 +119,24 @@ dependencies {
     implementation('org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3')
     implementation('org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3')
 
+    def nav_version = "2.5.3"
 
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.5.4'
     androidTestImplementation platform('androidx.compose:compose-bom:2023.10.01')

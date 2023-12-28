@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
-import entidades.BottomBarState
+import navigation.BottomBarState
 import entidades.ParentPlatform
 import interfaces.PlatformInterface
-import ui.components.PlatformList
+import ui.components.platforms.PlatformList
 import ui.theme.AppTheme
 
 class MainActivity : AppCompatActivity(), PlatformInterface {

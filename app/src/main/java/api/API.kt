@@ -41,6 +41,12 @@ object API {
             @Query("ordering") ordering: String
         ): Call<RawgData<List<Game>>>
 
+        @GET("games")
+        fun searchGames(
+            @Query("search") search: String,
+            @Query("key") apiKey: String,
+        ): Call<RawgData<List<Game>>>
+
         @GET("games/{id}")
         fun getGameDetails(
             @Path("id") id: Long,
@@ -128,6 +134,30 @@ object API {
                 }else{
                     println(response.errorBody())
                     println("ERROR - loadGames")
+                }
+            }
+            override fun onFailure(call: Call<RawgData<List<Game>>>, t: Throwable) {
+                println(t.message)
+                failure()
+            }
+        })
+    }
+
+
+    fun searchGames(search: String, success: (listGames: RawgData<List<Game>>) -> Unit, failure: () -> Unit) {
+
+        if(search.isEmpty()){
+            return
+        }
+
+        getRetroFit().searchGames(Constant.API_KEY, search).enqueue(object: Callback<RawgData<List<Game>>> {
+            override fun onResponse(call: Call<RawgData<List<Game>>>, response: Response<RawgData<List<Game>>>) {
+                if(response.isSuccessful){
+                    println(response)
+                    success((response.body()!!))
+                }else{
+                    println(response.errorBody())
+                    println("ERROR - searchGames")
                 }
             }
             override fun onFailure(call: Call<RawgData<List<Game>>>, t: Throwable) {

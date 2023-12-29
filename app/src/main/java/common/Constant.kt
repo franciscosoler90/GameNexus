@@ -16,4 +16,6 @@ object Constant {
     const val gameId="gameId"
     const val page="page"
 
+    const val destination="destination"
+
 }

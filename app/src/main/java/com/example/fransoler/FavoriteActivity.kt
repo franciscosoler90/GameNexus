@@ -12,23 +12,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.room.Room
+import common.Constant
 import entidades.Game
 import entidades.ParentPlatform
+import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
+import sql.GameDatabase
 import ui.components.favorite.FavoriteView
 import ui.theme.AppTheme
+import viewmodels.GameFavoriteViewModel
 
 class FavoriteActivity : ComponentActivity(), NavigationInterface {
+
+    private lateinit var gameFavoriteViewModel: GameFavoriteViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val gameDatabase = Room.databaseBuilder(applicationContext, GameDatabase::class.java, "game-db").fallbackToDestructiveMigration().build()
+        gameFavoriteViewModel = GameFavoriteViewModel(gameDatabase)
+
         setContent {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                    FavoriteView(navigationInterface = this@FavoriteActivity)
+                    FavoriteView(navigationInterface = this@FavoriteActivity, gameFavoriteViewModel)
                 }
             }
         }
@@ -53,6 +64,9 @@ class FavoriteActivity : ComponentActivity(), NavigationInterface {
     }
 
     override fun onClickGame(game: Game) {
-        //Nada
+        val intent = Intent(this,GameInfoActivity::class.java)
+        intent.putExtra(Constant.destination, BottomBarState.FAVORITE.ordinal)
+        intent.putExtra(Constant.gameId, game.id)
+        startActivity(intent)
     }
 }

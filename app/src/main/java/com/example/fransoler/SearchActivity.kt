@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
 import entidades.ParentPlatform
+import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
 import ui.components.search.SearchView
 import ui.theme.AppTheme
@@ -55,6 +56,7 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
 
     override fun onClickGame(game: Game) {
         val intent = Intent(this,GameInfoActivity::class.java)
+        intent.putExtra(Constant.destination, BottomBarState.SEARCH.ordinal)
         intent.putExtra(Constant.gameId, game.id)
         startActivity(intent)
     }

@@ -4,16 +4,16 @@
 
 package entidades
 
-sealed class DetailScreenEvent {
+sealed class GameInfoScreenEvent {
     data class FavoriteGame(
         val id: Long,
         val favorite: Boolean
-    ) : DetailScreenEvent()
+    ) : GameInfoScreenEvent()
 
     data class ShareGame(
         val gameId: Long? = null,
         val dismissed: Boolean = false
-    ) : DetailScreenEvent()
+    ) : GameInfoScreenEvent()
 
 
 }

@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
+import entidades.enums.BottomBarState
 import interfaces.GameInterface
 import ui.components.GameList
 import ui.theme.AppTheme
@@ -21,7 +22,7 @@ import viewmodels.GameListViewModel
 class GameListActivity : AppCompatActivity(), GameInterface {
 
     private var platformId: Int = 0
-    private var currentPage : Int = 1
+    private var currentPage: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,7 @@ class GameListActivity : AppCompatActivity(), GameInterface {
     //Método que se llama al clicar en un juego
     override fun onClickGame(game: Game) {
         val intent = Intent(this,GameInfoActivity::class.java)
+        intent.putExtra(Constant.destination, BottomBarState.HOME.ordinal)
         intent.putExtra(Constant.gameId, game.id)
         intent.putExtra(Constant.platformId, platformId)
         intent.putExtra(Constant.page, currentPage)
@@ -55,7 +57,7 @@ class GameListActivity : AppCompatActivity(), GameInterface {
         //Nada
     }
 
-    override fun onFavoriteGame(game: Game) {
+    override fun onToogleFavorite(favorite: Boolean) {
         //Nada
     }
 

@@ -24,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,12 +35,18 @@ import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
 
 @Composable
-fun GameList(gameInterface: GameInterface, platformId: Int, currentPage: Int) {
+fun GameList(
+    gameInterface: GameInterface,
+    platformId: Int, currentPage: Int
+) {
 
     val gameListViewModel = GameListViewModel(platformId,currentPage)
     val platformViewModel = viewModel<PlatformInfoViewModel>()
 
-    platformViewModel.onInit(platformId)
+    // Cargar los juegos favoritos al inicio
+    LaunchedEffect(Unit) {
+        platformViewModel.onInit(platformId)
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

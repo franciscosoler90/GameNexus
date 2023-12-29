@@ -14,23 +14,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import interfaces.NavigationInterface
 import entidades.enums.BottomBarDestination
 import entidades.enums.BottomBarState
 import ui.components.GameItem
 import ui.components.navigation.BottomNavigationBar
-import viewmodels.GameSearchViewModel
+import viewmodels.GameFavoriteViewModel
 
 @Composable
-fun FavoriteView(navigationInterface: NavigationInterface) {
+fun FavoriteView(
+    navigationInterface: NavigationInterface,
+    gameFavoriteViewModel : GameFavoriteViewModel) {
 
-    val gameSearchViewModel = viewModel<GameSearchViewModel>()
-
-    gameSearchViewModel.onError = {
-        println("Error gameSearchViewModel")
+    LaunchedEffect(Unit) {
+        gameFavoriteViewModel.onInit()
     }
 
     Scaffold(
@@ -59,7 +59,7 @@ fun FavoriteView(navigationInterface: NavigationInterface) {
                     .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(gameSearchViewModel.listGames) { game ->
+                items(gameFavoriteViewModel.favoriteList.value) { game ->
                     GameItem(game = game) {
                         navigationInterface.onClickGame(game)
                     }

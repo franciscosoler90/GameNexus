@@ -30,37 +30,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import entidades.DetailScreenEvent
-import entidades.Game
 import interfaces.GameInterface
 import viewmodels.GameInfoViewModel
 
 
 @Composable
 fun GameInfo(
-    game: Game,
+    gameId: Long,
     gameInfoViewModel: GameInfoViewModel,
     gameInterface: GameInterface
 ){
 
     LaunchedEffect(key1 = Unit, block = {
-        gameInfoViewModel.onInit(game.id)
+        gameInfoViewModel.onInit(gameId)
     })
 
-    var savedState by remember { mutableStateOf(game.isFavorite) }
-
     val state by gameInfoViewModel.uiState.collectAsState()
-
-
-    gameInfoViewModel.game
 
     Column(
         modifier = Modifier
@@ -98,9 +89,9 @@ fun GameInfo(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Icon(
-                            imageVector = if (savedState) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                            imageVector = if (state.isFavoriteGame) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                             contentDescription = null,
-                            tint = if (savedState) Color.Red else Color.White,
+                            tint = if (state.isFavoriteGame) Color.Red else Color.White,
                             modifier = Modifier
                                 .size(32.dp)
                                 .padding(top = 4.dp)
@@ -108,15 +99,9 @@ fun GameInfo(
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = rememberRipple(bounded = false),
                                     onClick = {
-                                        savedState = !savedState
-                                        gameInfoViewModel.onEvent(
-                                            DetailScreenEvent.FavoriteGame(
-                                                id = game.id,
-                                                favorite = savedState
-                                            )
-                                        )
                                         //Favorito
-                                        gameInterface.onFavoriteGame(game)
+                                        gameInfoViewModel.toggleFavorite()
+                                        gameInterface.onToogleFavorite(!state.isFavoriteGame)
                                     }
                                 )
                         )

@@ -13,5 +13,5 @@ interface GameInterface {
     fun updatePrevious(gameListViewModel : GameListViewModel)
     fun onClickGame(game: Game)
     fun onShareGame(game: Game)
-    fun onFavoriteGame(game: Game)
+    fun onToogleFavorite(favorite: Boolean)
 }

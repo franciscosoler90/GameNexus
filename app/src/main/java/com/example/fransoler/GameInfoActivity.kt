@@ -24,6 +24,8 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
 
     private var platformId: Int = 0
     private var page : Int = 1
+    private val gameInfoViewModel = GameInfoViewModel()
+    private val gameInfoInterface = this@GameInfoActivity // Accede a la instancia de la actividad
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +34,15 @@ class GameInfoActivity : AppCompatActivity(), GameInfoInterface {
         page = intent.getIntExtra(Constant.page,1)
 
         val gameId = intent.getLongExtra(Constant.gameId,0)
-        val gameInfoViewModel = GameInfoViewModel()
-
-        gameInfoViewModel.onInit(gameId)
 
         setContent {
-            val gameInfoInterface = this@GameInfoActivity // Accede a la instancia de la actividad
 
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    gameInfoViewModel.onInit(gameId)
                     GameInfo(gameInfoViewModel.game, gameInfoInterface, gameInfoViewModel)
                 }
             }

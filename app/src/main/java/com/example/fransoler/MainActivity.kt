@@ -12,35 +12,52 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
-import navigation.BottomBarState
 import entidades.ParentPlatform
+import interfaces.NavigationInterface
 import interfaces.PlatformInterface
-import ui.components.platforms.PlatformList
+import ui.components.platforms.PlatformView
 import ui.theme.AppTheme
+import viewmodels.PlatformListViewModel
 
-class MainActivity : AppCompatActivity(), PlatformInterface {
+class MainActivity : AppCompatActivity(), PlatformInterface, NavigationInterface {
+
+    private val platformListViewModel = PlatformListViewModel()
+    private val platformInterface = this@MainActivity // Accede a la instancia de la actividad
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val plataformaInterface = this@MainActivity // Accede a la instancia de la actividad
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PlatformList(plataformaInterface, BottomBarState.HOME)
+                    platformListViewModel.onInit()
+                    PlatformView(platformInterface, platformInterface, platformListViewModel)
                 }
             }
         }
     }
 
-    //Método que se llama al clicar
+    //Método que se llama al clicar en una plataforma
     override fun onPlatformClicked(platform: ParentPlatform.Platform) {
         val intent = Intent(this,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platform.id)
         startActivity(intent)
+    }
+
+    override fun home() {
+        //Nada
+    }
+
+    override fun search() {
+        val intent = Intent(this,SearchActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun favorite() {
+        //Nada
     }
 
 }

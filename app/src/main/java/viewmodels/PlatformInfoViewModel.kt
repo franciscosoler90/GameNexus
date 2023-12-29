@@ -9,19 +9,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
+import entidades.ParentPlatform
 
-class PlatformInfoViewModel(private val platformId : Int): ViewModel() {
+class PlatformInfoViewModel: ViewModel() {
 
-    var platformName by mutableStateOf("")
+    var platform by mutableStateOf(ParentPlatform.Platform(0,"","",0,"",""))
 
-    init {
-        loadData()
+    fun onInit(platformId: Int) {
+        loadPlatform(platformId)
     }
 
-    private fun loadData() {
+    private fun loadPlatform(platformId : Int) {
 
         API.loadGamesPlatform(platformId,{ platform ->
-            platformName = platform.name
+            this.platform = platform
         }, {
             println("Error - PlatformInfoViewModel")
         })

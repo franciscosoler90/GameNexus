@@ -31,7 +31,7 @@ object API {
         fun getPlatform(
             @Path("id") id: Int,
             @Query("key") apiKey: String
-        ): Call<Game>
+        ): Call<ParentPlatform.Platform>
 
         @GET("games")
         fun getGames(
@@ -43,8 +43,8 @@ object API {
 
         @GET("games")
         fun searchGames(
-            @Query("search") search: String,
             @Query("key") apiKey: String,
+            @Query("search") search: String
         ): Call<RawgData<List<Game>>>
 
         @GET("games/{id}")
@@ -96,14 +96,14 @@ object API {
     }
 
 
-    fun loadGamesPlatform(platformId : Int, success: (platform: Game) -> Unit, failure: () -> Unit) {
+    fun loadGamesPlatform(platformId : Int, success: (platform: ParentPlatform.Platform) -> Unit, failure: () -> Unit) {
 
         if(platformId <= 0){
             return
         }
 
-        getRetroFit().getPlatform(platformId, Constant.API_KEY).enqueue(object: Callback<Game> {
-            override fun onResponse(call: Call<Game>, response: Response<Game>) {
+        getRetroFit().getPlatform(platformId, Constant.API_KEY).enqueue(object: Callback<ParentPlatform.Platform> {
+            override fun onResponse(call: Call<ParentPlatform.Platform>, response: Response<ParentPlatform.Platform>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -112,7 +112,7 @@ object API {
                     println("ERROR - loadGamesPlatform")
                 }
             }
-            override fun onFailure(call: Call<Game>, t: Throwable) {
+            override fun onFailure(call: Call<ParentPlatform.Platform>, t: Throwable) {
                 println(t.message)
                 failure()
             }
@@ -144,13 +144,13 @@ object API {
     }
 
 
-    fun searchGames(search: String, success: (listGames: RawgData<List<Game>>) -> Unit, failure: () -> Unit) {
+    fun searchGames(query: String, success: (listGames: RawgData<List<Game>>) -> Unit, failure: () -> Unit) {
 
-        if(search.isEmpty()){
+        if(query.isEmpty()){
             return
         }
 
-        getRetroFit().searchGames(Constant.API_KEY, search).enqueue(object: Callback<RawgData<List<Game>>> {
+        getRetroFit().searchGames(Constant.API_KEY, query).enqueue(object: Callback<RawgData<List<Game>>> {
             override fun onResponse(call: Call<RawgData<List<Game>>>, response: Response<RawgData<List<Game>>>) {
                 if(response.isSuccessful){
                     println(response)

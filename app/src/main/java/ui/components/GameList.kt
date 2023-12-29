@@ -27,19 +27,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import interfaces.GameListInterface
+import ui.components.search.searchBar
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
 
 @Composable
-fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
-    val gameListViewModel = GameListViewModel(platformId, page)
-    val platformViewModel = PlatformInfoViewModel(platformId)
+fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage: Int) {
+
+    val gameListViewModel = GameListViewModel(platformId,currentPage)
+    val platformViewModel = viewModel<PlatformInfoViewModel>()
+
+    platformViewModel.onInit(platformId)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            searchBar(gameListCallbacks, platformViewModel.platformName)
+            searchBar(gameListInterface, platformViewModel.platform.name)
         },
         bottomBar = {
             Row(
@@ -51,7 +56,7 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 IconButton(onClick = {
-                    gameListCallbacks.updatePrevious(gameListViewModel)
+                    gameListInterface.updatePrevious(gameListViewModel)
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
@@ -61,7 +66,7 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
                 }
 
                 IconButton(onClick = {
-                    gameListCallbacks.updateForward(gameListViewModel)
+                    gameListInterface.updateForward(gameListViewModel)
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
@@ -87,11 +92,10 @@ fun GameList(gameListCallbacks: GameListInterface, platformId: Int, page: Int) {
             ) {
                 items(gameListViewModel.gameList) { game ->
                     GameItem(game = game) {
-                        gameListCallbacks.onGameClicked(game)
+                        gameListInterface.onGameClicked(game)
                     }
                 }
             }
         }
-
     }
 }

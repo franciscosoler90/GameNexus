@@ -15,17 +15,16 @@ class PlatformListViewModel: ViewModel() {
 
     var platformList: List<ParentPlatform.Platform> by mutableStateOf(listOf())
 
-    init {
+    fun onInit() {
         loadData()
     }
 
     private fun loadData() {
         API.loadPlatforms({ result ->
             // Convierte la lista de PlatformParent a una lista de Platform utilizando flatMap
-            platformList = result.result.flatMap { platformParent ->
-                platformParent.platforms // Accede a la lista de plataformas dentro de PlatformParent
-            } }, { println("Error - PlatformListViewModel") })
+            platformList = result.result.flatMap { platformParent -> platformParent.platforms }
+                          },
+            { println("Error - PlatformListViewModel") })
     }
-
 
 }

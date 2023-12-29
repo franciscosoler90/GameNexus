@@ -21,13 +21,13 @@ import viewmodels.GameListViewModel
 class GameListActivity : AppCompatActivity(), GameListInterface {
 
     private var platformId: Int = 0
-    private var page : Int = 1
+    private var currentPage : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         platformId = intent.getIntExtra(Constant.platformId,0)
-        page = intent.getIntExtra(Constant.page,1)
+        currentPage = intent.getIntExtra(Constant.page,1)
 
         setContent {
             val gameListInterface = this@GameListActivity // Accede a la instancia de la actividad
@@ -36,19 +36,18 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameList(gameListInterface, platformId = platformId, page)
+                    GameList(gameListInterface, platformId, currentPage)
                 }
             }
         }
     }
-
 
     //Método que se llama al clicar en un juego
     override fun onGameClicked(game: Game) {
         val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.gameId, game.id)
         intent.putExtra(Constant.platformId, platformId)
-        intent.putExtra(Constant.page, page)
+        intent.putExtra(Constant.page, currentPage)
         startActivity(intent)
     }
 
@@ -59,16 +58,15 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
 
     override fun updateForward(viewModel: GameListViewModel) {
         if(viewModel.next != null){
-            page++
-            viewModel.updatePage(page)
+            currentPage++
+            viewModel.updatePage(currentPage)
         }
     }
 
     override fun updatePrevious(viewModel: GameListViewModel) {
-        if(page > 1){
-            page--
-            viewModel.updatePage(page)
+        if(currentPage > 1){
+            currentPage--
+            viewModel.updatePage(currentPage)
         }
     }
-
 }

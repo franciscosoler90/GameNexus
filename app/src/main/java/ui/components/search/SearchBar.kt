@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package ui.components
+package ui.components.search
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon

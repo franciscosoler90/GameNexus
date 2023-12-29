@@ -22,11 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import interfaces.GameListInterface
+import interfaces.GameInterface
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun searchBar(gameListCallbacks: GameListInterface, title : String) {
+fun searchBar(gameInterface: GameInterface, title : String) {
 
     var query by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
@@ -42,7 +42,7 @@ fun searchBar(gameListCallbacks: GameListInterface, title : String) {
         },
         leadingIcon = {
             IconButton(onClick = {
-                gameListCallbacks.backToPlatforms()
+                gameInterface.back()
             }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowBack,

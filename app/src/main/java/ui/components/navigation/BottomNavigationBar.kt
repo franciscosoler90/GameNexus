@@ -38,17 +38,17 @@ fun BottomNavigationBar(
                     when (bottomNavItem) {
                         BottomBarDestination.Home -> {
                             if (current != Constant.homeRoute) {
-                                navigationInterface.home()
+                                navigationInterface.homeRoute()
                             }
                         }
                         BottomBarDestination.Search -> {
                             if (current != Constant.searchRoute) {
-                                navigationInterface.search()
+                                navigationInterface.searchRoute()
                             }
                         }
                         BottomBarDestination.Favorite -> {
                             if (current != Constant.favoriteRoute) {
-                                navigationInterface.favorite()
+                                navigationInterface.favoriteRoute()
                             }
                         }
                     }

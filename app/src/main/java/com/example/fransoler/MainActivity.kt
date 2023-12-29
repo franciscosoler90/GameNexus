@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
+import entidades.Game
 import entidades.ParentPlatform
 import interfaces.NavigationInterface
 import interfaces.PlatformInterface
@@ -41,22 +42,26 @@ class MainActivity : AppCompatActivity(), PlatformInterface, NavigationInterface
     }
 
     //Método que se llama al clicar en una plataforma
-    override fun onPlatformClicked(platform: ParentPlatform.Platform) {
+    override fun onClickPlatform(platform: ParentPlatform.Platform) {
         val intent = Intent(this,GameListActivity::class.java)
         intent.putExtra(Constant.platformId, platform.id)
         startActivity(intent)
     }
 
-    override fun home() {
+    override fun onClickGame(game: Game) {
         //Nada
     }
 
-    override fun search() {
+    override fun homeRoute() {
+        //Nada
+    }
+
+    override fun searchRoute() {
         val intent = Intent(this,SearchActivity::class.java)
         startActivity(intent)
     }
 
-    override fun favorite() {
+    override fun favoriteRoute() {
         //Nada
     }
 

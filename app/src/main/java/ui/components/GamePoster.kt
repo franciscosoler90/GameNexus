@@ -27,12 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import entidades.Game
-import interfaces.GameInfoInterface
+import interfaces.GameInterface
 
 @Composable
 fun GamePoster(
     game: Game,
-    gameInfoInterface: GameInfoInterface
+    gameInterface: GameInterface
 )
 {
     Box(
@@ -67,7 +67,7 @@ fun GamePoster(
                         indication = rememberRipple(bounded = false),
                         onClick = {
                             //Volver atras
-                            gameInfoInterface.back()
+                            gameInterface.back()
                         }
                     )
             )
@@ -82,7 +82,7 @@ fun GamePoster(
                         indication = rememberRipple(bounded = false),
                         onClick = {
                             //Compartir
-                            gameInfoInterface.compartir(game)
+                            gameInterface.onClickGame(game)
 
                         }
                     )

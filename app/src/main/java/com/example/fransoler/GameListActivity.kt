@@ -13,12 +13,12 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
-import interfaces.GameListInterface
+import interfaces.GameInterface
 import ui.components.GameList
 import ui.theme.AppTheme
 import viewmodels.GameListViewModel
 
-class GameListActivity : AppCompatActivity(), GameListInterface {
+class GameListActivity : AppCompatActivity(), GameInterface {
 
     private var platformId: Int = 0
     private var currentPage : Int = 1
@@ -30,20 +30,20 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
         currentPage = intent.getIntExtra(Constant.page,1)
 
         setContent {
-            val gameListInterface = this@GameListActivity // Accede a la instancia de la actividad
+            val gameInterface = this@GameListActivity // Accede a la instancia de la actividad
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameList(gameListInterface, platformId, currentPage)
+                    GameList(gameInterface, platformId, currentPage)
                 }
             }
         }
     }
 
     //Método que se llama al clicar en un juego
-    override fun onGameClicked(game: Game) {
+    override fun onClickGame(game: Game) {
         val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.gameId, game.id)
         intent.putExtra(Constant.platformId, platformId)
@@ -51,22 +51,30 @@ class GameListActivity : AppCompatActivity(), GameListInterface {
         startActivity(intent)
     }
 
-    override fun backToPlatforms() {
+    override fun onShareGame(game: Game) {
+        //Nada
+    }
+
+    override fun onFavoriteGame(game: Game) {
+        //Nada
+    }
+
+    override fun back() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    override fun updateForward(viewModel: GameListViewModel) {
-        if(viewModel.next != null){
+    override fun updateForward(gameListViewModel: GameListViewModel) {
+        if(gameListViewModel.next != null){
             currentPage++
-            viewModel.updatePage(currentPage)
+            gameListViewModel.updatePage(currentPage)
         }
     }
 
-    override fun updatePrevious(viewModel: GameListViewModel) {
+    override fun updatePrevious(gameListViewModel: GameListViewModel) {
         if(currentPage > 1){
             currentPage--
-            viewModel.updatePage(currentPage)
+            gameListViewModel.updatePage(currentPage)
         }
     }
 }

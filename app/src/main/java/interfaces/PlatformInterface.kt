@@ -7,5 +7,5 @@ package interfaces
 import entidades.ParentPlatform
 
 interface PlatformInterface {
-    fun onPlatformClicked(platform: ParentPlatform.Platform)
+    fun onClickPlatform(platform: ParentPlatform.Platform)
 }

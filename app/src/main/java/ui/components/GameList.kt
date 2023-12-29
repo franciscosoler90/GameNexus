@@ -28,13 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import interfaces.GameListInterface
+import interfaces.GameInterface
 import ui.components.search.searchBar
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel
 
 @Composable
-fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage: Int) {
+fun GameList(gameInterface: GameInterface, platformId: Int, currentPage: Int) {
 
     val gameListViewModel = GameListViewModel(platformId,currentPage)
     val platformViewModel = viewModel<PlatformInfoViewModel>()
@@ -44,7 +44,7 @@ fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage:
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            searchBar(gameListInterface, platformViewModel.platform.name)
+            searchBar(gameInterface, platformViewModel.platform.name)
         },
         bottomBar = {
             Row(
@@ -56,7 +56,7 @@ fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage:
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 IconButton(onClick = {
-                    gameListInterface.updatePrevious(gameListViewModel)
+                    gameInterface.updatePrevious(gameListViewModel)
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
@@ -66,7 +66,7 @@ fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage:
                 }
 
                 IconButton(onClick = {
-                    gameListInterface.updateForward(gameListViewModel)
+                    gameInterface.updateForward(gameListViewModel)
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
@@ -92,7 +92,7 @@ fun GameList(gameListInterface: GameListInterface, platformId: Int, currentPage:
             ) {
                 items(gameListViewModel.gameList) { game ->
                     GameItem(game = game) {
-                        gameListInterface.onGameClicked(game)
+                        gameInterface.onClickGame(game)
                     }
                 }
             }

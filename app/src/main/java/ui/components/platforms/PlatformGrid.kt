@@ -23,7 +23,7 @@ fun PlatformGrid(platformInterface: PlatformInterface, platformListViewModel: Pl
     ) {
         items(platformListViewModel.platformList) { plataforma ->
             PlataformaItem(platform = plataforma) {
-                platformInterface.onPlatformClicked(plataforma)
+                platformInterface.onClickPlatform(plataforma)
             }
         }
     }

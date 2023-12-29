@@ -121,8 +121,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
             ) {
                 items(gameSearchViewModel.listGames) { game ->
                     GameItem(game = game) {
-                        println(game)
-                        //gameListCallbacks.onGameClicked(game)
+                        navigationInterface.onClickGame(game)
                     }
                 }
             }

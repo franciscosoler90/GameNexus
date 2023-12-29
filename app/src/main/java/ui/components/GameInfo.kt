@@ -40,15 +40,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import entidades.DetailScreenEvent
 import entidades.Game
-import interfaces.GameInfoInterface
+import interfaces.GameInterface
 import viewmodels.GameInfoViewModel
 
 
 @Composable
 fun GameInfo(
     game: Game,
-    gameInfoInterface: GameInfoInterface,
-    gameInfoViewModel: GameInfoViewModel
+    gameInfoViewModel: GameInfoViewModel,
+    gameInterface: GameInterface
 ){
 
     LaunchedEffect(key1 = Unit, block = {
@@ -58,6 +58,9 @@ fun GameInfo(
     var savedState by remember { mutableStateOf(game.isFavorite) }
 
     val state by gameInfoViewModel.uiState.collectAsState()
+
+
+    gameInfoViewModel.game
 
     Column(
         modifier = Modifier
@@ -71,7 +74,7 @@ fun GameInfo(
                 verticalArrangement = Arrangement.spacedBy((-30).dp),
             ) {
 
-                GamePoster(game = game, gameInfoInterface)
+                GamePoster(game = game, gameInterface)
 
                 Column(
                     modifier = Modifier
@@ -107,14 +110,13 @@ fun GameInfo(
                                     onClick = {
                                         savedState = !savedState
                                         gameInfoViewModel.onEvent(
-                                            DetailScreenEvent.BookmarkGame(
+                                            DetailScreenEvent.FavoriteGame(
                                                 id = game.id,
-                                                bookmarked = savedState
+                                                favorite = savedState
                                             )
                                         )
                                         //Favorito
-                                        gameInfoInterface.changeFavorite(savedState)
-
+                                        gameInterface.onFavoriteGame(game)
                                     }
                                 )
                         )

@@ -5,9 +5,9 @@
 package entidades
 
 sealed class DetailScreenEvent {
-    data class BookmarkGame(
+    data class FavoriteGame(
         val id: Long,
-        val bookmarked: Boolean
+        val favorite: Boolean
     ) : DetailScreenEvent()
 
     data class ShareGame(

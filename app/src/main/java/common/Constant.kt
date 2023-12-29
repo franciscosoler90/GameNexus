@@ -16,10 +16,4 @@ object Constant {
     const val gameId="gameId"
     const val page="page"
 
-
-    const val homeRoute = "home_route"
-    const val searchRoute = "search_route"
-    const val favoriteRoute = "favorite_route"
-
-
 }

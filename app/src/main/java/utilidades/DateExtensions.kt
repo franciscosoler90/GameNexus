@@ -4,7 +4,7 @@
 
 package utilidades
 
-import entidades.ConverterDate
+import entidades.enums.ConverterDate
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

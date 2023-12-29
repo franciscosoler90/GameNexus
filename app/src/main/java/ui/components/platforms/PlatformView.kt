@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import common.Constant
 import interfaces.NavigationInterface
 import interfaces.PlatformInterface
-import navigation.BottomBarDestination
+import entidades.enums.BottomBarDestination
+import entidades.enums.BottomBarState
 import ui.components.navigation.BottomNavigationBar
 import viewmodels.PlatformListViewModel
 
@@ -24,7 +24,7 @@ fun PlatformView(platformInterface: PlatformInterface, navigationInterface: Navi
 
             BottomNavigationBar(
                 items = BottomBarDestination.values().toList(),
-                current = Constant.homeRoute,
+                current = BottomBarState.HOME,
                 navigationInterface = navigationInterface
             )
 

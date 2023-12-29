@@ -4,7 +4,6 @@
 
 <resources>
     <string name="app_name">GameNexus</string>
-    <string name="title_activity_login">Login</string>
 
     <string name="genres">Géneros</string>
     <string name="platforms">Plataformas</string>
@@ -22,5 +21,4 @@
     <string name="home">Principal</string>
     <string name="search">Búsqueda</string>
     <string name="favorites">Favoritos</string>
-
 </resources>

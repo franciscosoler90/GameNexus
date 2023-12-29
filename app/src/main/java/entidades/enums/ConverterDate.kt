@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package entidades
+package entidades.enums
 
 enum class ConverterDate(val formatter: String) {
     FULL_DATE("dd MMMM yyyy"),

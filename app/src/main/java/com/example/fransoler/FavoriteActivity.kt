@@ -12,15 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import common.Constant
 import entidades.Game
 import entidades.ParentPlatform
 import interfaces.NavigationInterface
-import ui.components.search.SearchView
+import ui.components.favorite.FavoriteView
 import ui.theme.AppTheme
 
-class SearchActivity : ComponentActivity(), NavigationInterface {
-
+class FavoriteActivity : ComponentActivity(), NavigationInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,7 +27,8 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SearchView(this@SearchActivity)
+
+                    FavoriteView(navigationInterface = this@FavoriteActivity)
                 }
             }
         }
@@ -41,12 +40,12 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
     }
 
     override fun searchRoute() {
-        //Nada
+        val intent = Intent(this,SearchActivity::class.java)
+        startActivity(intent)
     }
 
     override fun favoriteRoute() {
-        val intent = Intent(this,FavoriteActivity::class.java)
-        startActivity(intent)
+        //Nada
     }
 
     override fun onClickPlatform(platform: ParentPlatform.Platform) {
@@ -54,9 +53,6 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
     }
 
     override fun onClickGame(game: Game) {
-        val intent = Intent(this,GameInfoActivity::class.java)
-        intent.putExtra(Constant.gameId, game.id)
-        startActivity(intent)
+        //Nada
     }
-
 }

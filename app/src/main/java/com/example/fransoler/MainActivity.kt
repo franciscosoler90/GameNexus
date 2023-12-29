@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity(), PlatformInterface, NavigationInterface
     }
 
     override fun favoriteRoute() {
-        //Nada
+        val intent = Intent(this,FavoriteActivity::class.java)
+        startActivity(intent)
     }
 
 }

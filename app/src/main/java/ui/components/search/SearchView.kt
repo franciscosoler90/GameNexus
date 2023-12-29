@@ -32,9 +32,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import common.Constant
 import interfaces.NavigationInterface
-import navigation.BottomBarDestination
+import entidades.enums.BottomBarDestination
+import entidades.enums.BottomBarState
 import ui.components.GameItem
 import ui.components.navigation.BottomNavigationBar
 import viewmodels.GameSearchViewModel
@@ -99,7 +99,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
         bottomBar = {
             BottomNavigationBar(
                 items = BottomBarDestination.values().toList(),
-                current = Constant.searchRoute,
+                current = BottomBarState.SEARCH,
                 navigationInterface = navigationInterface
             )
 

@@ -16,38 +16,38 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import common.Constant
 import interfaces.NavigationInterface
-import navigation.BottomBarDestination
+import entidades.enums.BottomBarDestination
+import entidades.enums.BottomBarState
 
 @Composable
 fun BottomNavigationBar(
     items: List<BottomBarDestination>,
     modifier: Modifier = Modifier,
-    current: String,
+    current: BottomBarState,
     navigationInterface: NavigationInterface
 ) {
 
     NavigationBar(modifier = modifier) {
         items.forEach { bottomNavItem ->
             NavigationBarItem(
-                enabled = current != bottomNavItem.direction,
-                selected = current == bottomNavItem.direction,
+                enabled = current != bottomNavItem.state,
+                selected = current == bottomNavItem.state,
                 onClick = {
 
                     when (bottomNavItem) {
                         BottomBarDestination.Home -> {
-                            if (current != Constant.homeRoute) {
+                            if (current != BottomBarState.HOME) {
                                 navigationInterface.homeRoute()
                             }
                         }
                         BottomBarDestination.Search -> {
-                            if (current != Constant.searchRoute) {
+                            if (current != BottomBarState.SEARCH) {
                                 navigationInterface.searchRoute()
                             }
                         }
                         BottomBarDestination.Favorite -> {
-                            if (current != Constant.favoriteRoute) {
+                            if (current != BottomBarState.FAVORITE) {
                                 navigationInterface.favoriteRoute()
                             }
                         }
@@ -56,14 +56,14 @@ fun BottomNavigationBar(
                 label = {
                     Text(
                         text = stringResource(bottomNavItem.label),
-                        color = if (current == bottomNavItem.direction) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                        color = if (current == bottomNavItem.state) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
                     )
                 },
                 icon = {
                     Image(
                         painter = rememberVectorPainter(image = bottomNavItem.icon),
                         contentDescription = stringResource(bottomNavItem.label),
-                        colorFilter = ColorFilter.tint(if (current == bottomNavItem.direction) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary),
+                        colorFilter = ColorFilter.tint(if (current == bottomNavItem.state) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary),
                         modifier = Modifier.size(26.dp)
                     )
                 }

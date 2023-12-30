@@ -91,7 +91,7 @@ fun GeneralGameInfo(
                             Text(
                                 text = it,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.onBackground
                             )
                         }
                     }
@@ -99,11 +99,8 @@ fun GeneralGameInfo(
             }
         }
 
-        println("Plataformas: " + game.platforms)
-
         val genreNames = game.genres.map { it.name }.toList().filterNotNull()
-        val platformNames = game.platforms.map { it.name }.toList().filterNotNull()
-
+        val platformNames = game.platforms.map { it.name }.toList()
 
         if(genreNames.isNotEmpty()){
             Column {

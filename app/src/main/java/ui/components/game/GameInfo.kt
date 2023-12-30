@@ -124,7 +124,7 @@ fun GameInfo(
                     Text(
                         text = gameInfoViewModel.cleanDescription,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
 
                     if(gameInfoViewModel.listScreenshots.isNotEmpty()){

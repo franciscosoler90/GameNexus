@@ -6,7 +6,6 @@ package com.example.fransoler
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
@@ -14,10 +13,11 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.room.Room
 import common.Constant
+import common.ContextUtilities
 import entidades.Game
 import interfaces.GameInterface
 import sql.GameDatabase
-import ui.components.GameInfo
+import ui.components.game.GameInfo
 import ui.theme.AppTheme
 import viewmodels.GameInfoViewModel
 import viewmodels.GameListViewModel
@@ -29,7 +29,6 @@ class GameInfoActivity : AppCompatActivity(), GameInterface {
     private var destination : Int = 1
 
     private lateinit var gameInfoViewModel: GameInfoViewModel
-    private val gameInterface = this@GameInfoActivity // Accede a la instancia de la actividad
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +43,12 @@ class GameInfoActivity : AppCompatActivity(), GameInterface {
         val gameId = intent.getLongExtra(Constant.gameId,0)
 
         setContent {
-
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameInfo(gameId, gameInfoViewModel, gameInterface)
+                    GameInfo(gameId, gameInfoViewModel, this@GameInfoActivity)
                 }
             }
         }
@@ -96,21 +94,13 @@ class GameInfoActivity : AppCompatActivity(), GameInterface {
 
     //Compartir
     override fun onShareGame(game: Game) {
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            type = "text/plain"
-            putExtra(Intent.EXTRA_SUBJECT, Constant.appName)
-            putExtra(Intent.EXTRA_TEXT, Constant.urlGames + game.slug)
-        }
-        startActivity(Intent.createChooser(shareIntent, null))
+        ContextUtilities.shareGame(this, game)
     }
 
     override fun onToogleFavorite(favorite: Boolean) {
-        if(favorite){
-            Toast.makeText(baseContext,R.string.addFavorite, Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(baseContext,R.string.deleteFavorite, Toast.LENGTH_SHORT).show()
-        }
+        ContextUtilities.onToogleFavorite(this, favorite)
+
     }
+
 
 }

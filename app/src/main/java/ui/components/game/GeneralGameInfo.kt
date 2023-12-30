@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package ui.components
+package ui.components.game
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -99,7 +99,13 @@ fun GeneralGameInfo(
             }
         }
 
-        if(game.genres.isNotEmpty()){
+        println("Plataformas: " + game.platforms)
+
+        val genreNames = game.genres.map { it.name }.toList().filterNotNull()
+        val platformNames = game.platforms.map { it.name }.toList().filterNotNull()
+
+
+        if(genreNames.isNotEmpty()){
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -108,7 +114,20 @@ fun GeneralGameInfo(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                TagGroup(tag = game.genres.flatMap { genres -> listOf(genres.name) }.filterNotNull(), modifier, false)
+                TagGroup(tag = genreNames, modifier, false)
+            }
+        }
+
+        if(platformNames.isNotEmpty()){
+            Column {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Plataformas",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TagGroup(tag = platformNames, modifier, false)
             }
         }
     }

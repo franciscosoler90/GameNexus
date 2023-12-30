@@ -13,7 +13,7 @@ import entidades.GenreTypeConverter
 import entidades.PlatformTypeConverter
 import entidades.PublisherTypeConverter
 
-@Database(entities = [Game::class], version = 2)
+@Database(entities = [Game::class], version = 6)
 @TypeConverters(PlatformTypeConverter::class, GenreTypeConverter::class, DeveloperTypeConverter::class, PublisherTypeConverter::class)
 abstract class GameDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDAO

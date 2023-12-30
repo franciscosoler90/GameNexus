@@ -29,14 +29,12 @@ class LoginActivity : ComponentActivity(), LoginInterface {
         auth = FirebaseAuth.getInstance()
 
         setContent {
-            val loginInterface = this@LoginActivity // Accede a la instancia de la actividad
-
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginForm(loginInterface)
+                    LoginForm(this@LoginActivity)
                 }
             }
         }

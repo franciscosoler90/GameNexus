@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package ui.components
+package ui.components.game
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ui.components.game.TagElement
 
 @Composable
 fun TagsRow(list : List<String>) {

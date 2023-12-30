@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package ui.components
+package ui.components.game
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import interfaces.GameInterface
+import ui.components.game.GameItem
 import ui.components.search.searchBar
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel

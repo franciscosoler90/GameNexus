@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import interfaces.NavigationInterface
 import entidades.enums.BottomBarDestination
 import entidades.enums.BottomBarState
-import ui.components.GameItem
+import ui.components.game.GameItem
 import ui.components.navigation.BottomNavigationBar
 import viewmodels.GameFavoriteViewModel
 

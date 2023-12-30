@@ -29,14 +29,12 @@ class RegisterActivity : ComponentActivity(), LoginInterface {
         auth = FirebaseAuth.getInstance()
 
         setContent {
-            val loginInterface = this@RegisterActivity // Accede a la instancia de la actividad
-
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RegisterForm(loginInterface)
+                    RegisterForm(this@RegisterActivity)
                 }
             }
         }

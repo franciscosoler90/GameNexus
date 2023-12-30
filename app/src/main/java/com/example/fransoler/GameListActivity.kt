@@ -15,7 +15,7 @@ import common.Constant
 import entidades.Game
 import entidades.enums.BottomBarState
 import interfaces.GameInterface
-import ui.components.GameList
+import ui.components.game.GameList
 import ui.theme.AppTheme
 import viewmodels.GameListViewModel
 
@@ -31,13 +31,12 @@ class GameListActivity : AppCompatActivity(), GameInterface {
         currentPage = intent.getIntExtra(Constant.page,1)
 
         setContent {
-            val gameInterface = this@GameListActivity // Accede a la instancia de la actividad
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameList(gameInterface, platformId, currentPage)
+                    GameList(this@GameListActivity, platformId, currentPage)
                 }
             }
         }

@@ -2,7 +2,7 @@
  * Copyright (c) 2023. Francisco José Soler Conchello
  */
 
-package ui.components
+package ui.components.game
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

@@ -30,10 +30,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import entidades.ParentPlatform
+import entidades.Platform
 
 @Composable
-fun PlataformaItem(platform: ParentPlatform.Platform, onItemClick: () -> Unit) {
+fun PlataformaItem(platform: Platform, onItemClick: () -> Unit) {
 
     Card(
         modifier = Modifier

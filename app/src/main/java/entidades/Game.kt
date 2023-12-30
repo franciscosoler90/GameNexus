@@ -23,7 +23,7 @@ data class Game(
     @ColumnInfo(name = "released") val released: String?,
     @ColumnInfo(name = "metacritic") val metacritic: Int,
     @ColumnInfo(name = "rating") val rating: Float,
-    @ColumnInfo(name = "platforms") val platforms: List<ParentPlatform.Platform>,
+    @ColumnInfo(name = "platforms") val platforms: List<Platforms>,
     @ColumnInfo(name = "genres") val genres: List<Genre>,
     @ColumnInfo(name = "developers") val developers: List<Developer>,
     @ColumnInfo(name = "publishers") val publishers: List<Publisher>,
@@ -32,15 +32,13 @@ data class Game(
 // Crear un convertidor para la lista de plataformas
 class PlatformTypeConverter {
     @TypeConverter
-    fun fromList(platforms: List<ParentPlatform.Platform>): String {
-        // Convertir la lista a String para almacenarla en la base de datos
+    fun fromList(platforms: List<Platforms>): String {
         return Gson().toJson(platforms)
     }
 
     @TypeConverter
-    fun toList(platformsString: String): List<ParentPlatform.Platform> {
-        // Convertir el String de la base de datos a una lista
-        val listType = object : TypeToken<List<ParentPlatform.Platform>>() {}.type
+    fun toList(platformsString: String): List<Platforms> {
+        val listType = object : TypeToken<List<Platforms>>() {}.type
         return Gson().fromJson(platformsString, listType)
     }
 }

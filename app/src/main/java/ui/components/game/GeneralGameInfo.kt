@@ -35,40 +35,47 @@ fun GeneralGameInfo(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(36.dp)
         ) {
-            Column {
-                Text(
-                    text = "Metascore",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.primary)
-                ) {
+
+            if(game.metacritic > 0) {
+                Column {
                     Text(
-                        text = if (game.metacritic != 0) game.metacritic.toString() else "-",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.align(Alignment.Center)
+                        text = "Metascore",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text(
+                            text = game.metacritic.toString(),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }
+
+            if(game.rating > 0) {
+                Column {
+                    Text(
+                        text = "Puntuación",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    RatingBar(
+                        rating = game.rating.toString(),
+                        modifier = Modifier
+                            .height(16.dp)
                     )
                 }
             }
-            Column {
-                Text(
-                    text = "Puntuación",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                RatingBar(
-                    rating = game.rating.toString(),
-                    modifier = Modifier
-                        .height(16.dp)
-                )
-            }
+
         }
 
         if(game.released?.isNotBlank() == true){
@@ -100,7 +107,7 @@ fun GeneralGameInfo(
         }
 
         val genreNames = game.genres.map { it.name }.toList().filterNotNull()
-        val platformNames = game.platforms.map { it.name }.toList()
+        val platformNames = game.platforms.map { it.platform.name }.toList()
 
         if(genreNames.isNotEmpty()){
             Column {

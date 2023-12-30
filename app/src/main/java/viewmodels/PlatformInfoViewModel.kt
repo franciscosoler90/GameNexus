@@ -9,11 +9,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entidades.ParentPlatform
+import entidades.Platform
 
 class PlatformInfoViewModel: ViewModel() {
 
-    var platform by mutableStateOf(ParentPlatform.Platform(0,"","",0,"",""))
+    var platform by mutableStateOf(Platform(0,"","",0,"",""))
 
     fun onInit(platformId: Int) {
         loadPlatform(platformId)

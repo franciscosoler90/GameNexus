@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import interfaces.GameInterface
-import ui.components.game.GameItem
 import ui.components.search.searchBar
 import viewmodels.GameListViewModel
 import viewmodels.PlatformInfoViewModel

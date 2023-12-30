@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.room.Room
 import common.Constant
 import entidades.Game
-import entidades.ParentPlatform
+import entidades.Platform
 import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
 import sql.GameDatabase
@@ -59,7 +59,7 @@ class FavoriteActivity : ComponentActivity(), NavigationInterface {
         //Nada
     }
 
-    override fun onClickPlatform(platform: ParentPlatform.Platform) {
+    override fun onClickPlatform(platform: Platform) {
         //Nada
     }
 

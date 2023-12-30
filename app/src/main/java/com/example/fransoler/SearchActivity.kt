@@ -14,7 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
-import entidades.ParentPlatform
+import entidades.Platform
 import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
 import ui.components.search.SearchView
@@ -50,7 +50,7 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
         startActivity(intent)
     }
 
-    override fun onClickPlatform(platform: ParentPlatform.Platform) {
+    override fun onClickPlatform(platform: Platform) {
         //Nada
     }
 

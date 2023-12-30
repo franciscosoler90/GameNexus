@@ -25,13 +25,13 @@ object API {
         fun getPlatforms(
             @Query("ordering") ordering: String,
             @Query("key") apiKey: String
-        ): Call<RawgData<List<ParentPlatform>>>
+        ): Call<RawgData<List<PlatformParent>>>
 
         @GET("platforms/{id}")
         fun getPlatform(
             @Path("id") id: Int,
             @Query("key") apiKey: String
-        ): Call<ParentPlatform.Platform>
+        ): Call<Platform>
 
         @GET("games")
         fun getGames(
@@ -78,10 +78,10 @@ object API {
         return OkHttpClient.Builder().addInterceptor(HeaderInterceptor()).build()
     }
 
-    fun loadPlatforms(success: (platformList: RawgData<List<ParentPlatform>>  ) -> Unit, failure: () -> Unit) {
+    fun loadPlatforms(success: (platformList: RawgData<List<PlatformParent>>  ) -> Unit, failure: () -> Unit) {
 
-        getRetroFit().getPlatforms("name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<ParentPlatform>>> {
-            override fun onResponse(call: Call<RawgData<List<ParentPlatform>>>, response: Response<RawgData<List<ParentPlatform>>>) {
+        getRetroFit().getPlatforms("name",Constant.API_KEY).enqueue(object: Callback<RawgData<List<PlatformParent>>> {
+            override fun onResponse(call: Call<RawgData<List<PlatformParent>>>, response: Response<RawgData<List<PlatformParent>>>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -90,7 +90,7 @@ object API {
                     println("ERROR - loadPlatforms")
                 }
             }
-            override fun onFailure(call: Call<RawgData<List<ParentPlatform>>>, t: Throwable) {
+            override fun onFailure(call: Call<RawgData<List<PlatformParent>>>, t: Throwable) {
                 println(t.message)
                 failure()
             }
@@ -98,14 +98,14 @@ object API {
     }
 
 
-    fun loadGamesPlatform(platformId : Int, success: (platform: ParentPlatform.Platform) -> Unit, failure: () -> Unit) {
+    fun loadGamesPlatform(platformId : Int, success: (platform: Platform) -> Unit, failure: () -> Unit) {
 
         if(platformId <= 0){
             return
         }
 
-        getRetroFit().getPlatform(platformId, Constant.API_KEY).enqueue(object: Callback<ParentPlatform.Platform> {
-            override fun onResponse(call: Call<ParentPlatform.Platform>, response: Response<ParentPlatform.Platform>) {
+        getRetroFit().getPlatform(platformId, Constant.API_KEY).enqueue(object: Callback<Platform> {
+            override fun onResponse(call: Call<Platform>, response: Response<Platform>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -114,7 +114,7 @@ object API {
                     println("ERROR - loadGamesPlatform")
                 }
             }
-            override fun onFailure(call: Call<ParentPlatform.Platform>, t: Throwable) {
+            override fun onFailure(call: Call<Platform>, t: Throwable) {
                 println(t.message)
                 failure()
             }
@@ -215,5 +215,4 @@ object API {
             }
         })
     }
-
 }

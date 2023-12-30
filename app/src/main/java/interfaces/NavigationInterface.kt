@@ -5,14 +5,13 @@
 package interfaces
 
 import entidades.Game
-import entidades.ParentPlatform
+import entidades.Platform
 
 interface NavigationInterface {
     fun homeRoute()
     fun searchRoute()
     fun favoriteRoute()
 
-
-    fun onClickPlatform(platform: ParentPlatform.Platform)
+    fun onClickPlatform(platform: Platform)
     fun onClickGame(game: Game)
 }

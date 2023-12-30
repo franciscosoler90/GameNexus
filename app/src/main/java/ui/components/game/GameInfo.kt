@@ -123,7 +123,7 @@ fun GameInfo(
 
                     Text(
                         text = gameInfoViewModel.cleanDescription,
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
 

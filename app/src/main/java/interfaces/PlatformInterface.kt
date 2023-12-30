@@ -4,8 +4,8 @@
 
 package interfaces
 
-import entidades.ParentPlatform
+import entidades.Platform
 
 interface PlatformInterface {
-    fun onClickPlatform(platform: ParentPlatform.Platform)
+    fun onClickPlatform(platform: Platform)
 }

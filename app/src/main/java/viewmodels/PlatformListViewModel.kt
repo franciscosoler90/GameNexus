@@ -9,11 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entidades.ParentPlatform
+import entidades.Platform
 
 class PlatformListViewModel: ViewModel() {
 
-    var platformList: List<ParentPlatform.Platform> by mutableStateOf(listOf())
+    var platformList: List<Platform> by mutableStateOf(listOf())
 
     fun onInit() {
         loadData()

@@ -17,7 +17,7 @@ class GameSearchViewModel : ViewModel() {
     var onError: () -> Unit = {} // Manejo de error por defecto, se puede configurar desde fuera
 
     fun searchGames(query : String) {
-        API.searchGames(query, { game ->
+        API.searchGames(query, true, false,{ game ->
             listGames = game.result
         }) {
             onError() // Llama a la función de manejo de errores

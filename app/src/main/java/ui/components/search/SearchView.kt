@@ -46,11 +46,14 @@ fun SearchView(navigationInterface: NavigationInterface) {
             var query by remember { mutableStateOf("") }
             var active by remember { mutableStateOf(false) }
 
+            val searchPrecise = true
+            val searchExact = false
+
             SearchAppBar(
                 text = query,
                 onTextChange = {
                         newText -> query = newText
-                        gameSearchViewModel.searchGames(newText)
+                        gameSearchViewModel.searchGames(newText, searchPrecise, searchExact)
                                },
                 onCloseClicked = {
                     active = false
@@ -60,7 +63,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
                     active = false
                     controller?.hide()
                     if(query.isNotEmpty()) {
-                        gameSearchViewModel.searchGames(query)
+                        gameSearchViewModel.searchGames(query, searchPrecise, searchExact)
                     }
                 }
             )

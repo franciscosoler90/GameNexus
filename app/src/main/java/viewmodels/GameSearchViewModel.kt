@@ -16,8 +16,8 @@ class GameSearchViewModel : ViewModel() {
     var listGames by mutableStateOf<List<Game>>(emptyList())
     var onError: () -> Unit = {} // Manejo de error por defecto, se puede configurar desde fuera
 
-    fun searchGames(query : String) {
-        API.searchGames(query, searchPrecise = true, searchExact = false, success = { game ->
+    fun searchGames(query : String, searchPrecise : Boolean, searchExact : Boolean) {
+        API.searchGames(query, searchPrecise = searchPrecise, searchExact = searchExact, success = { game ->
             listGames = game.result
         }) {
             onError() // Llama a la función de manejo de errores

@@ -14,6 +14,7 @@
     <string name="deleteFavorite">Eliminado de favoritos</string>
 
     <string name="errorLogin">Error de inicio de sesión</string>
+    <string name="errorUpdate">Error al actualizar el nombre de usuario</string>
     <string name="errorAuth">Autenticación fallida</string>
 
     <string name="description">Descripción</string>
@@ -21,4 +22,7 @@
     <string name="home">Principal</string>
     <string name="search">Búsqueda</string>
     <string name="favorites">Favoritos</string>
+
+    <string name="back">Atrás</string>
+    <string name="forward">Adelante</string>
 </resources>

@@ -13,8 +13,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.room.Room
+import com.google.firebase.auth.FirebaseAuth
 import common.Constant
-import entidades.Game
+import entidades.GameEntity
 import entidades.Platform
 import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
@@ -33,13 +34,15 @@ class FavoriteActivity : ComponentActivity(), NavigationInterface {
         val gameDatabase = Room.databaseBuilder(applicationContext, GameDatabase::class.java, "game-db").fallbackToDestructiveMigration().build()
         gameFavoriteViewModel = GameFavoriteViewModel(gameDatabase)
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
         setContent {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    FavoriteView(navigationInterface = this@FavoriteActivity, gameFavoriteViewModel)
+                    FavoriteView(currentUser, navigationInterface = this@FavoriteActivity, gameFavoriteViewModel)
                 }
             }
         }
@@ -63,7 +66,7 @@ class FavoriteActivity : ComponentActivity(), NavigationInterface {
         //Nada
     }
 
-    override fun onClickGame(game: Game) {
+    override fun onClickGame(game: GameEntity) {
         val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.destination, BottomBarState.FAVORITE.ordinal)
         intent.putExtra(Constant.gameId, game.id)

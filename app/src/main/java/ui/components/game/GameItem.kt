@@ -18,12 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.unit.dp
 import entidades.enums.ConverterDate
-import entidades.Game
+import entidades.GameEntity
 import utilidades.convertDateTo
 
 @Composable
 fun GameItem(
-    game: Game,
+    game: GameEntity,
     modifier: Modifier = Modifier,
     onItemClick: () -> Unit)
 {
@@ -52,7 +52,7 @@ fun GameItem(
                 text = game.name,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                maxLines = 1
+                maxLines = 2
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -75,7 +75,7 @@ fun GameItem(
             }
 
             if(game.genres.isNotEmpty()){
-                val genresList = game.genres.flatMap { genres -> listOf(genres.name) }.filterNotNull()
+                val genresList = game.genres.map { genre -> genre.name }.toList().filterNotNull()
 
                 Spacer(modifier = Modifier.height(4.dp))
                 TagGroup(tag = genresList, modifier, true)

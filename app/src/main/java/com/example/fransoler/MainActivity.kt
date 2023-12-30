@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
-import entidades.Game
+import entidades.GameEntity
 import entidades.Platform
 import interfaces.NavigationInterface
 import interfaces.PlatformInterface
@@ -28,13 +28,14 @@ class MainActivity : AppCompatActivity(), PlatformInterface, NavigationInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        platformListViewModel.onInit()
+
         setContent {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    platformListViewModel.onInit()
                     PlatformView(platformInterface, platformInterface, platformListViewModel)
                 }
             }
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(), PlatformInterface, NavigationInterface
         startActivity(intent)
     }
 
-    override fun onClickGame(game: Game) {
+    override fun onClickGame(game: GameEntity) {
         //Nada
     }
 

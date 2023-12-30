@@ -42,6 +42,7 @@ class LoginActivity : ComponentActivity(), LoginInterface {
 
     //Método al hacer clic en el botón Entrar
     override fun signIn(datosUsuario: DatosUsuario) {
+
         auth.signInWithEmailAndPassword(datosUsuario.email, datosUsuario.pwd)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -56,6 +57,10 @@ class LoginActivity : ComponentActivity(), LoginInterface {
     }
 
     override fun createAccount(datosUsuario: DatosUsuario) {
+        //No hace nada
+    }
+
+    override fun updateName(datosUsuario: DatosUsuario) {
         //No hace nada
     }
 

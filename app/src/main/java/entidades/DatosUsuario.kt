@@ -5,6 +5,7 @@
 package entidades
 
 data class DatosUsuario(
+    var name: String = "",
     var email: String = "",
     var pwd: String = "",
     var remember: Boolean = false

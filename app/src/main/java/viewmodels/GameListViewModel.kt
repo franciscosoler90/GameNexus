@@ -9,11 +9,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import api.API
-import entidades.Game
+import entidades.GameEntity
 
 class GameListViewModel(private val platformId : Int, private val page : Int): ViewModel() {
 
-    var gameList: List<Game> by mutableStateOf(listOf())
+    var gameList: List<GameEntity> by mutableStateOf(listOf())
     var next: String? by mutableStateOf("")
 
     init {

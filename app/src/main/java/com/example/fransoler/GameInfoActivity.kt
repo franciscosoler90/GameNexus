@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.room.Room
+import com.google.firebase.auth.FirebaseAuth
 import common.Constant
 import common.ContextUtilities
 import entidades.Game
+import entidades.GameEntity
 import interfaces.GameInterface
 import sql.GameDatabase
 import ui.components.game.GameInfo
@@ -42,13 +44,16 @@ class GameInfoActivity : AppCompatActivity(), GameInterface {
 
         val gameId = intent.getLongExtra(Constant.gameId,0)
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
+
         setContent {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameInfo(gameId, gameInfoViewModel, this@GameInfoActivity)
+                    GameInfo(userId, gameId, gameInfoViewModel, this@GameInfoActivity)
                 }
             }
         }
@@ -88,7 +93,7 @@ class GameInfoActivity : AppCompatActivity(), GameInterface {
         //Nada
     }
 
-    override fun onClickGame(game: Game) {
+    override fun onClickGame(game: GameEntity) {
         //Nada
     }
 

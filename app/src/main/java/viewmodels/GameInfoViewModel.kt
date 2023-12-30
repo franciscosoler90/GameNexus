@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import api.API
 import entidades.Game
+import entidades.GameEntity
 import entidades.GameInfoScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,17 +27,19 @@ class GameInfoViewModel(gameDatabase: GameDatabase) : ViewModel() {
     private val _uiState = MutableStateFlow(GameInfoScreenState())
     val uiState = _uiState.asStateFlow()
 
+    private var userId by mutableStateOf("")
     var cleanDescription by mutableStateOf("")
     var listScreenshots by mutableStateOf<List<String>>(emptyList())
 
     // Acceder al DAO
     private val gameFavoriteDAO: GameDAO = gameDatabase.gameDao()
 
-    fun onInit(gameId: Long) {
+    fun onInit(gameId: Long, newUserId: String) {
         viewModelScope.launch {
+            userId = newUserId
             loadGameDetails(gameId)
             loadGameScreenshots(gameId)
-            checkIfGameIsFavorite(gameId)
+            checkIfGameIsFavorite(gameId, userId)
         }
     }
 
@@ -56,9 +59,9 @@ class GameInfoViewModel(gameDatabase: GameDatabase) : ViewModel() {
 
     }
 
-    private suspend fun checkIfGameIsFavorite(gameId : Long) {
+    private suspend fun checkIfGameIsFavorite(gameId : Long, userId: String) {
         val result = withContext(Dispatchers.IO) {
-            gameFavoriteDAO.isGameFavorite(gameId)
+            gameFavoriteDAO.isGameFavorite(gameId, userId)
         }
 
         _uiState.update { it.copy(isFavoriteGame = result > 0) }
@@ -77,15 +80,17 @@ class GameInfoViewModel(gameDatabase: GameDatabase) : ViewModel() {
 
     private suspend fun addFavorite(game: Game) {
         withContext(Dispatchers.IO) {
-            gameFavoriteDAO.insertAll(game)
-            checkIfGameIsFavorite(game.id)
+            val gameEntity = GameEntity(game.id, game.name, game.background_image, game.released, game.rating, game.genres, userId)
+            gameFavoriteDAO.insertAll(gameEntity)
+            checkIfGameIsFavorite(game.id, userId)
         }
     }
 
     private suspend fun deleteFavorite(game: Game) {
         withContext(Dispatchers.IO) {
-            gameFavoriteDAO.delete(game)
-            checkIfGameIsFavorite(game.id)
+            val gameEntity = GameEntity(game.id, game.name, game.background_image, game.released, game.rating, game.genres, userId)
+            gameFavoriteDAO.delete(gameEntity)
+            checkIfGameIsFavorite(game.id, userId)
         }
     }
 

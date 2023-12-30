@@ -4,14 +4,11 @@
 
 package entidades
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "developer")
+@JsonClass(generateAdapter = true)
 data class Developer(
-    @PrimaryKey val id:Int,
-    @ColumnInfo(name = "name") val name:String,
-    @ColumnInfo(name = "slug") val slug:String,
-    @ColumnInfo(name = "image_background") val image_background:String,
+    @Json(name = "id") val id:Int,
+    @Json(name = "name") val name:String
 )

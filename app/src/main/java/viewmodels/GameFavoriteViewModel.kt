@@ -8,7 +8,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import entidades.Game
+import entidades.GameEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,23 +17,23 @@ import sql.GameDatabase
 
 class GameFavoriteViewModel(gameDatabase: GameDatabase) : ViewModel() {
 
-    private val _favoriteList = mutableStateOf<List<Game>>(emptyList())
-    val favoriteList: State<List<Game>> = _favoriteList
+    private val _favoriteList = mutableStateOf<List<GameEntity>>(emptyList())
+    val favoriteList: State<List<GameEntity>> = _favoriteList
 
     // Acceder al DAO
     private val gameFavoriteDAO: GameDAO = gameDatabase.gameDao()
 
-    fun onInit() {
+    fun onInit(userId: String) {
         viewModelScope.launch {
-            loadFavoriteGames()
+            loadFavoriteGames(userId)
         }
     }
 
     // Método para cargar los juegos favoritos desde la base de datos
-    private fun loadFavoriteGames() {
+    private fun loadFavoriteGames(userId: String) {
         viewModelScope.launch {
             val games = withContext(Dispatchers.IO) {
-                gameFavoriteDAO.getAll()
+                gameFavoriteDAO.getAll(userId)
             }
 
             _favoriteList.value = games

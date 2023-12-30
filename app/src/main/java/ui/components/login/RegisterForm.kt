@@ -64,6 +64,12 @@ fun RegisterForm(loginCallbacks: LoginInterface) {
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier.fillMaxWidth()
             ) {
+                NameField(
+                    value = datosUsuario.name,
+                    onChange = { data -> datosUsuario = datosUsuario.copy(name = data) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(10.dp))
                 EmailField(
                     value = datosUsuario.email,
                     onChange = { data -> datosUsuario = datosUsuario.copy(email = data) },

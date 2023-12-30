@@ -9,20 +9,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import entidades.Game
+import entidades.GameEntity
 
 @Dao
 interface GameDAO {
-    @Query("SELECT * FROM game")
-    fun getAll(): List<Game>
+    @Query("SELECT * FROM favorite_games WHERE userId = :userId")
+    fun getAll(userId : String): List<GameEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg games: Game)
+    fun insertAll(vararg games: GameEntity)
 
     @Delete
-    fun delete(game: Game)
+    fun delete(game: GameEntity)
 
-    @Query("SELECT COUNT(*) FROM game WHERE id = :gameId")
-    fun isGameFavorite(gameId: Long): Int
+    @Query("SELECT COUNT(*) FROM favorite_games WHERE id = :gameId AND userId = :userId")
+    fun isGameFavorite(gameId: Long, userId : String): Int
 
 }

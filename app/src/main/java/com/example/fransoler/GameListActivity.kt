@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import common.Constant
 import entidades.Game
+import entidades.GameEntity
 import entidades.enums.BottomBarState
 import interfaces.GameInterface
 import ui.components.game.GameList
@@ -43,7 +44,7 @@ class GameListActivity : AppCompatActivity(), GameInterface {
     }
 
     //Método que se llama al clicar en un juego
-    override fun onClickGame(game: Game) {
+    override fun onClickGame(game: GameEntity) {
         val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.destination, BottomBarState.HOME.ordinal)
         intent.putExtra(Constant.gameId, game.id)
@@ -78,4 +79,5 @@ class GameListActivity : AppCompatActivity(), GameInterface {
             gameListViewModel.updatePage(currentPage)
         }
     }
+    
 }

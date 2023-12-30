@@ -13,7 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import common.Constant
-import entidades.Game
+import entidades.GameEntity
 import entidades.Platform
 import entidades.enums.BottomBarState
 import interfaces.NavigationInterface
@@ -54,7 +54,7 @@ class SearchActivity : ComponentActivity(), NavigationInterface {
         //Nada
     }
 
-    override fun onClickGame(game: Game) {
+    override fun onClickGame(game: GameEntity) {
         val intent = Intent(this,GameInfoActivity::class.java)
         intent.putExtra(Constant.destination, BottomBarState.SEARCH.ordinal)
         intent.putExtra(Constant.gameId, game.id)

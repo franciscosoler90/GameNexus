@@ -11,6 +11,8 @@ interface LoginInterface {
 
     fun createAccount(datosUsuario: DatosUsuario)
 
+    fun updateName(datosUsuario: DatosUsuario)
+
     fun registerActivity()
 
     fun loginActivity()

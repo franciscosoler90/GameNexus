@@ -5,7 +5,12 @@
 package api
 
 import common.Constant
-import entidades.*
+import entidades.Game
+import entidades.GameEntity
+import entidades.Platform
+import entidades.PlatformParent
+import entidades.RawgData
+import entidades.ScreenShot
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,16 +43,17 @@ object API {
             @Query("key") apiKey: String,
             @Query("platforms") platform: Int,
             @Query("page") page: Int,
-            @Query("ordering") ordering: String
-        ): Call<RawgData<List<Game>>>
+            @Query("ordering") ordering: String,
+        ): Call<RawgData<List<GameEntity>>>
 
         @GET("games")
         fun searchGames(
             @Query("key") apiKey: String,
             @Query("search") search: String,
             @Query("search_precise") searchPrecise: Boolean,
-            @Query("search_exact") searchExact: Boolean
-        ): Call<RawgData<List<Game>>>
+            @Query("search_exact") searchExact: Boolean,
+            @Query("ordering") ordering: String,
+        ): Call<RawgData<List<GameEntity>>>
 
         @GET("games/{id}")
         fun getGameDetails(
@@ -122,14 +128,14 @@ object API {
     }
 
 
-    fun loadGames(platformId : Int, page: Int, success: (listGames: RawgData<List<Game>>) -> Unit, failure: () -> Unit) {
+    fun loadGames(platformId : Int, page: Int, success: (listGames: RawgData<List<GameEntity>>) -> Unit, failure: () -> Unit) {
 
         if(platformId <= 0 || page <= 0){
             return
         }
 
-        getRetroFit().getGames(Constant.API_KEY, platformId, page,"name").enqueue(object: Callback<RawgData<List<Game>>> {
-            override fun onResponse(call: Call<RawgData<List<Game>>>, response: Response<RawgData<List<Game>>>) {
+        getRetroFit().getGames(Constant.API_KEY, platformId, page,"name").enqueue(object: Callback<RawgData<List<GameEntity>>> {
+            override fun onResponse(call: Call<RawgData<List<GameEntity>>>, response: Response<RawgData<List<GameEntity>>>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -138,7 +144,7 @@ object API {
                     println("ERROR - loadGames")
                 }
             }
-            override fun onFailure(call: Call<RawgData<List<Game>>>, t: Throwable) {
+            override fun onFailure(call: Call<RawgData<List<GameEntity>>>, t: Throwable) {
                 println(t.message)
                 failure()
             }
@@ -146,14 +152,14 @@ object API {
     }
 
 
-    fun searchGames(query: String, searchPrecise: Boolean, searchExact: Boolean, success: (listGames: RawgData<List<Game>>) -> Unit, failure: () -> Unit) {
+    fun searchGames(query: String, searchPrecise: Boolean, searchExact: Boolean, ordering: String, success: (listGames: RawgData<List<GameEntity>>) -> Unit, failure: () -> Unit) {
 
         if(query.isEmpty()){
             return
         }
 
-        getRetroFit().searchGames(Constant.API_KEY, query,searchPrecise,searchExact).enqueue(object: Callback<RawgData<List<Game>>> {
-            override fun onResponse(call: Call<RawgData<List<Game>>>, response: Response<RawgData<List<Game>>>) {
+        getRetroFit().searchGames(Constant.API_KEY, query,searchPrecise,searchExact, ordering).enqueue(object: Callback<RawgData<List<GameEntity>>> {
+            override fun onResponse(call: Call<RawgData<List<GameEntity>>>, response: Response<RawgData<List<GameEntity>>>) {
                 if(response.isSuccessful){
                     println(response)
                     success((response.body()!!))
@@ -162,7 +168,7 @@ object API {
                     println("ERROR - searchGames")
                 }
             }
-            override fun onFailure(call: Call<RawgData<List<Game>>>, t: Throwable) {
+            override fun onFailure(call: Call<RawgData<List<GameEntity>>>, t: Throwable) {
                 println(t.message)
                 failure()
             }

@@ -42,13 +42,16 @@ import viewmodels.GameInfoViewModel
 
 @Composable
 fun GameInfo(
+    userId: String?,
     gameId: Long,
     gameInfoViewModel: GameInfoViewModel,
     gameInterface: GameInterface
 ){
 
     LaunchedEffect(key1 = Unit, block = {
-        gameInfoViewModel.onInit(gameId)
+        if (userId != null) {
+            gameInfoViewModel.onInit(gameId, userId)
+        }
     })
 
     val state by gameInfoViewModel.uiState.collectAsState()

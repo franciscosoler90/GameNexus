@@ -106,8 +106,9 @@ fun GeneralGameInfo(
             }
         }
 
-        val genreNames = game.genres.map { it.name }.toList().filterNotNull()
-        val platformNames = game.platforms.map { it.platform.name }.toList()
+        val genreNames = game.genres.mapNotNull { it.name }.sorted()
+
+        val platformNames = game.platforms.map { it.platform.name }.sorted()
 
         if(genreNames.isNotEmpty()){
             Column {

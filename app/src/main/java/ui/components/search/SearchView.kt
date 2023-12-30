@@ -35,6 +35,10 @@ fun SearchView(navigationInterface: NavigationInterface) {
     val gameSearchViewModel = viewModel<GameSearchViewModel>()
     val controller = LocalSoftwareKeyboardController.current
 
+    val searchPrecise = true
+    val searchExact = false
+    val ordering = "name"
+
     gameSearchViewModel.onError = {
         println("Error gameSearchViewModel")
     }
@@ -46,14 +50,11 @@ fun SearchView(navigationInterface: NavigationInterface) {
             var query by remember { mutableStateOf("") }
             var active by remember { mutableStateOf(false) }
 
-            val searchPrecise = true
-            val searchExact = false
-
             SearchAppBar(
                 text = query,
                 onTextChange = {
                         newText -> query = newText
-                        gameSearchViewModel.searchGames(newText, searchPrecise, searchExact)
+                        gameSearchViewModel.searchGames(newText, searchPrecise, searchExact, ordering)
                                },
                 onCloseClicked = {
                     active = false
@@ -63,7 +64,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
                     active = false
                     controller?.hide()
                     if(query.isNotEmpty()) {
-                        gameSearchViewModel.searchGames(query, searchPrecise, searchExact)
+                        gameSearchViewModel.searchGames(query, searchPrecise, searchExact, ordering)
                     }
                 }
             )
@@ -87,7 +88,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .fillMaxSize()
                     .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(16.dp)

@@ -10,77 +10,50 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "game")
-data class Game(
+
+@Entity(tableName = "favorite_games")
+data class GameEntity(
     @PrimaryKey val id: Long,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "slug") val slug: String,
-    @ColumnInfo(name = "name_original") val name_original: String,
     @ColumnInfo(name = "background_image") val background_image: String?,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "description_raw") val description_raw: String,
     @ColumnInfo(name = "released") val released: String?,
-    @ColumnInfo(name = "metacritic") val metacritic: Int,
     @ColumnInfo(name = "rating") val rating: Float,
-    @ColumnInfo(name = "platforms") val platforms: List<Platforms>,
     @ColumnInfo(name = "genres") val genres: List<Genre>,
-    @ColumnInfo(name = "developers") val developers: List<Developer>,
-    @ColumnInfo(name = "publishers") val publishers: List<Publisher>,
+    @ColumnInfo(name = "userId") val userId: String
 )
 
-// Crear un convertidor para la lista de plataformas
-class PlatformTypeConverter {
+@JsonClass(generateAdapter = true)
+data class Game(
+    @Json(name = "id") val id: Long,
+    @Json(name = "name") val name: String,
+    @Json(name = "slug") val slug: String,
+    @Json(name = "background_image") val background_image: String?,
+    @Json(name = "description") val description: String,
+    @Json(name = "description_raw") val description_raw: String,
+    @Json(name = "released") val released: String?,
+    @Json(name = "metacritic") val metacritic: Int,
+    @Json(name = "rating") val rating: Float,
+    @Json(name = "platforms") val platforms: List<Platforms>,
+    @Json(name = "genres") val genres: List<Genre>,
+    @Json(name = "developers") val developers: List<Developer>,
+    @Json(name = "publishers") val publishers: List<Publisher>,
+)
+
+
+class GenreListConverter {
+    private val gson = Gson()
+
     @TypeConverter
-    fun fromList(platforms: List<Platforms>): String {
-        return Gson().toJson(platforms)
+    fun fromGenreList(genres: List<Genre>): String {
+        return gson.toJson(genres)
     }
 
     @TypeConverter
-    fun toList(platformsString: String): List<Platforms> {
-        val listType = object : TypeToken<List<Platforms>>() {}.type
-        return Gson().fromJson(platformsString, listType)
-    }
-}
-
-// Convertidor para la lista de géneros
-class GenreTypeConverter {
-    @TypeConverter
-    fun fromList(genres: List<Genre>): String {
-        return Gson().toJson(genres)
-    }
-
-    @TypeConverter
-    fun toList(genresString: String): List<Genre> {
-        val listType = object : TypeToken<List<Genre>>() {}.type
-        return Gson().fromJson(genresString, listType)
-    }
-}
-
-// Convertidor para la lista de desarrolladores
-class DeveloperTypeConverter {
-    @TypeConverter
-    fun fromList(developers: List<Developer>): String {
-        return Gson().toJson(developers)
-    }
-
-    @TypeConverter
-    fun toList(developersString: String): List<Developer> {
-        val listType = object : TypeToken<List<Developer>>() {}.type
-        return Gson().fromJson(developersString, listType)
-    }
-}
-
-// Convertidor para la lista de publishers
-class PublisherTypeConverter {
-    @TypeConverter
-    fun fromList(publishers: List<Publisher>): String {
-        return Gson().toJson(publishers)
-    }
-
-    @TypeConverter
-    fun toList(publishersString: String): List<Publisher> {
-        val listType = object : TypeToken<List<Publisher>>() {}.type
-        return Gson().fromJson(publishersString, listType)
+    fun toGenreList(genreString: String): List<Genre> {
+        val type = object : TypeToken<List<Genre>>() {}.type
+        return gson.fromJson(genreString, type)
     }
 }

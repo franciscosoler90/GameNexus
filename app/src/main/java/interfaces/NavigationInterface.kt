@@ -4,7 +4,7 @@
 
 package interfaces
 
-import entidades.Game
+import entidades.GameEntity
 import entidades.Platform
 
 interface NavigationInterface {
@@ -13,5 +13,5 @@ interface NavigationInterface {
     fun favoriteRoute()
 
     fun onClickPlatform(platform: Platform)
-    fun onClickGame(game: Game)
+    fun onClickGame(game: GameEntity)
 }

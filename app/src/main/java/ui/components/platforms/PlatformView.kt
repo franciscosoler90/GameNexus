@@ -30,6 +30,6 @@ fun PlatformView(platformInterface: PlatformInterface, navigationInterface: Navi
 
         }
     ) { innerPadding ->
-        PlatformGrid(platformInterface = platformInterface, platformListViewModel, paddingValues = innerPadding)
+        PlatformList(platformInterface = platformInterface, platformListViewModel, innerPadding = innerPadding)
     }
 }

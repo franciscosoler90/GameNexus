@@ -44,7 +44,6 @@ fun GameList(
             searchBar(gameInterface, platformViewModel.platform.name)
         },
         bottomBar = {
-
             BottomGameNavigationBar(
                 items = BottomGameBarDestination.values().toList(),
                 gameInterface = gameInterface,
@@ -61,7 +60,7 @@ fun GameList(
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .fillMaxSize()
                     .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(16.dp)

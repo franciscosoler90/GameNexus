@@ -37,7 +37,6 @@ fun SearchView(navigationInterface: NavigationInterface) {
 
     val searchPrecise = true
     val searchExact = false
-    val ordering = "name"
 
     gameSearchViewModel.onError = {
         println("Error gameSearchViewModel")
@@ -54,7 +53,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
                 text = query,
                 onTextChange = {
                         newText -> query = newText
-                        gameSearchViewModel.searchGames(newText, searchPrecise, searchExact, ordering)
+                        gameSearchViewModel.searchGames(newText, searchPrecise, searchExact)
                                },
                 onCloseClicked = {
                     active = false
@@ -64,7 +63,7 @@ fun SearchView(navigationInterface: NavigationInterface) {
                     active = false
                     controller?.hide()
                     if(query.isNotEmpty()) {
-                        gameSearchViewModel.searchGames(query, searchPrecise, searchExact, ordering)
+                        gameSearchViewModel.searchGames(query, searchPrecise, searchExact)
                     }
                 }
             )

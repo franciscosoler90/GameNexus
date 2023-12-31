@@ -51,8 +51,7 @@ object API {
             @Query("key") apiKey: String,
             @Query("search") search: String,
             @Query("search_precise") searchPrecise: Boolean,
-            @Query("search_exact") searchExact: Boolean,
-            @Query("ordering") ordering: String,
+            @Query("search_exact") searchExact: Boolean
         ): Call<RawgData<List<GameEntity>>>
 
         @GET("games/{id}")
@@ -152,13 +151,13 @@ object API {
     }
 
 
-    fun searchGames(query: String, searchPrecise: Boolean, searchExact: Boolean, ordering: String, success: (listGames: RawgData<List<GameEntity>>) -> Unit, failure: () -> Unit) {
+    fun searchGames(query: String, searchPrecise: Boolean, searchExact: Boolean, success: (listGames: RawgData<List<GameEntity>>) -> Unit, failure: () -> Unit) {
 
         if(query.isEmpty()){
             return
         }
 
-        getRetroFit().searchGames(Constant.API_KEY, query,searchPrecise,searchExact, ordering).enqueue(object: Callback<RawgData<List<GameEntity>>> {
+        getRetroFit().searchGames(Constant.API_KEY, query,searchPrecise,searchExact).enqueue(object: Callback<RawgData<List<GameEntity>>> {
             override fun onResponse(call: Call<RawgData<List<GameEntity>>>, response: Response<RawgData<List<GameEntity>>>) {
                 if(response.isSuccessful){
                     println(response)

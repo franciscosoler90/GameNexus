@@ -24,3 +24,9 @@
 
 <p align="center"><img src="/pictures/1.png" alt="picture1"></p>
 <p align="center"><img src="/pictures/2.png" alt="picture2"></p>
+<p align="center"><img src="/pictures/3.png" alt="picture3"></p>
+<p align="center"><img src="/pictures/4.png" alt="picture4"></p>
+<p align="center"><img src="/pictures/5.png" alt="picture5"></p>
+<p align="center"><img src="/pictures/6.png" alt="picture6"></p>
+<p align="center"><img src="/pictures/7.png" alt="picture7"></p>
+<p align="center"><img src="/pictures/8.png" alt="picture8"></p>

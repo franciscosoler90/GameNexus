@@ -52,7 +52,7 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                 modifier = Modifier.size(144.dp)
             )
             Text(
-                text = "Iniciar sesión",
+                text = "Iniciar sesión en GameNexus",
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary
@@ -104,6 +104,15 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                 modifier = Modifier.clickable {
                     loginCallbacks.registerActivity()
                 }
+            )
+
+            Spacer(modifier = Modifier.height(80.dp))
+            Text(
+                text = "Desarrollado por Francisco José Soler Conchello",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

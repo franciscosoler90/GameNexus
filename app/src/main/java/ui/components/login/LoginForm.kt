@@ -95,7 +95,7 @@ fun LoginForm(loginCallbacks: LoginInterface) {
             ) {
                 Text("Entrar")
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = "¿No tienes una cuenta? Regístrate",
                 textAlign = TextAlign.Center,
@@ -106,7 +106,7 @@ fun LoginForm(loginCallbacks: LoginInterface) {
                 }
             )
 
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Desarrollado por Francisco José Soler Conchello",
                 textAlign = TextAlign.Center,
